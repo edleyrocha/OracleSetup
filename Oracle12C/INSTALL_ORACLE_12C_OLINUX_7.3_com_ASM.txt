@@ -219,28 +219,21 @@ id grid
 
 #DIRETORIO PARA INSTALAR ORACLE PADRAO --> OFA (OPTIMAL FLEXIBLE ARCHITECTURE)
 
-
+rm -rf /u01
 
 mkdir -p /u01/app/oracle
 mkdir -p /u01/app/oracle/fast_recovery_area/
 mkdir -p /u01/app/oracle/oradata
 mkdir -p /u01/app/oracle/product/12.1.0.2.0/dbhome_1
+chown -R oracle:oinstall /u01/app/oracle
 
-mkdir -p /u01/app/12.1.0.2.0/grid
-chown -R grid:oinstall /u01/app/12.1.0.2.0/grid
-
-chmod -R 775 /u01/
-
-
- 
 mkdir -p /u01/app/oraInventory
-mkdir -p /u01/app/12.1.0.1/grid
-
+mkdir -p /u01/app/grid/
+mkdir -p /u01/app/grid/product/12.1.0.2.0/grid
+chown -R grid:oinstall /u01/app/grid/
 chown -R grid:oinstall /u01/app/oraInventory
-chown -R grid:oinstall /u01/app/oracle/product/12.1.0/grid
 
-
-
+chmod -R 775 /u01
 
 
 ------------------------------------------------P6
@@ -322,9 +315,8 @@ export ORACLE_SID=oracledb;
 # ------------
 # ORACLE DIR
 export ORACLE_BASE=/u01/app/oracle;
-export ORACLE_HOME=$ORACLE_BASE/product/12.1.0/dbhome_1;
-export GRID_HOME=$ORACLE_BASE/product/12.1.0/grid;
-#export GRID_HOME=/u01/app/grid/product/12.1.0/grid;
+export ORACLE_HOME=$ORACLE_BASE/product/12.1.0.2.0/dbhome_1;
+export GRID_HOME=/u01/app/grid/product/12.1.0.2.0/grid;
 # ------------
 # CONFIG TNS
 export TNS_ADMIN=$ORACLE_HOME/network/admin;
@@ -410,14 +402,8 @@ export ORACLE_UNQNAME=oracledb;
 export ORACLE_SID=+ASM;
 # ------------
 # ORACLE DIR
-
-#export ORACLE_BASE=/u01/app/grid;
-export ORACLE_BASE=/u01/app/oracle;
-
-export ORACLE_HOME=$ORACLE_BASE/product/12.1.0/dbhome_1;
-export GRID_HOME=$ORACLE_BASE/product/12.1.0/grid;
-
-#
+export ORACLE_BASE=/u01/app/grid;
+export ORACLE_HOME=$ORACLE_BASE/product/12.1.0.2.0/grid;
 # ------------
 # CONFIG TNS
 export TNS_ADMIN=$ORACLE_HOME/network/admin;
@@ -551,6 +537,8 @@ DISPLAY = localhost: 0,0; export DISPLAY
 #Carregar Profile Novamente
 source /home/grid/.bash_profile
 
+
+.
 #Iniciar Setup (GRID) Pelo GRID via X11Display Logar com grid
 
 1 - Installation Option
@@ -653,10 +641,10 @@ netca
 lsnrctl status listener
 lsnrctl start listener
 
-
+#Show Config HAS e Enable caso
+crsctl config has
 crsctl enable has
-crsctl stat res -t
-
+crsctl status res -t
 
 
 
@@ -681,7 +669,8 @@ crsctl stat res -t
 
 10 - Executr Script como ROOT
 
-/u01/app/oracle/product/12.1.0/dbhome_1/root.sh	
+./u01/app/oracle/product/12.1.0/dbhome_1/root.sh	
+./u01/app/oracle/product/12.1.0.2.0/dbhome_1/root.sh
 
 -------------------------------------------------------- 
 
