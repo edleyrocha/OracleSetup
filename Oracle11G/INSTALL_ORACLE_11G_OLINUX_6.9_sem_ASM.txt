@@ -376,7 +376,7 @@ netca
 #Criar DB
 dbca
 #Check Listner
-lsnrctl
+lsnrctl status
 #Check EM
 emctl start agent	
 emctl status dbconsole
