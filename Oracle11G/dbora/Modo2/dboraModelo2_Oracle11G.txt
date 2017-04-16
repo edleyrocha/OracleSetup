@@ -1,10 +1,21 @@
 ------------------------------------------------------------------------------------------------------------------------------------------------
 ## --PASSO 1 EDITAR como Usuario root
-## COPIAR PASTA scripts PARA /HOME/oracle/
+## COPIAR PASTA scripts PARA /HOME/oracle/ e rodar via putty
 
+
+file="/etc/init.d/oracle"
+if [ -f "$file" ]
+then
+	mv /etc/init.d/oracle /etc/init.d/oracle.backup_$(date +%d-%m-%y__%H-%M-%S)
+	echo "$File Backup Old"
+	ln -s /home/oracle/scripts/oracle.sh /etc/init.d/oracle
+	echo "$File Link Create /etc/init.d/oracle "
+else
+	ln -s /home/oracle/scripts/oracle.sh /etc/init.d/oracle
+	echo "$File Link Create /etc/init.d/oracle "
+fi
 chmod 770 -R /home/oracle/scripts
 chown oracle:root -R /home/oracle/scripts
-ln -s /home/oracle/scripts/oracle.sh /etc/init.d/oracle
 chmod u+x /home/oracle/scripts/ora_start.sh /home/oracle/scripts/ora_stop.sh
 chkconfig --add oracle
 chkconfig --list
