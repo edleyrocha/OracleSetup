@@ -1,13 +1,13 @@
 #!/bin/bash
 # chkconfig: 345 99 10
+# /etc/init.d/oracle
 # description: Oracle auto start-stop script.
- 
+# processname: oracle
 # Set ORA_OWNER to the user id of the owner of the
 # Oracle database in ORA_HOME.
  
 ORA_OWNER=oracle
 RETVAL=0
- 
 case "$1" in
     'start')
         # Start the Oracle databases:
