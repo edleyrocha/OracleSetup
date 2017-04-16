@@ -1,0 +1,118 @@
+------------------------------------------------------------------------------------------------------------------------------------------------
+## --PASSO 1 EDITAR como Usuario root
+## COPIAR PASTA scripts PARA /HOME/oracle/
+
+chmod 770 -R /home/oracle/scripts
+chown oracle:root -R /home/oracle/scripts
+ln -s /home/oracle/scripts/oracle /etc/init.d/oracle
+chmod u+x /home/oracle/scripts/ora_start.sh /home/oracle/scripts/ora_stop.sh
+chkconfig --add oracle
+chkconfig --list
+
+##EDITAR
+vim /etc/oratab
+
+## add Y PARA BANCO DE DADOS START AUTOMATICO
+## Exemplo
+
+#oracledb:/u01/app/oracle/product/11.2.0.4/db_1:N
+PARA
+oracledb:/u01/app/oracle/product/11.2.0.4/db_1:Y
+
+
+
+
+
+OU SEGUIR O PASSO A PASSO ABAIXO
+------------------------------------------------------------------------------------------------------------------------------------------------
+## --PASSO 1 EDITAR como Usuario root
+vim /etc/oratab
+
+## add Y PARA BANCO DE DADOS START AUTOMATICO
+## Exemplo
+
+#oracledb:/u01/app/oracle/product/11.2.0.4/db_1:N
+PARA
+oracledb:/u01/app/oracle/product/11.2.0.4/db_1:Y
+------------------------------------------------------------------------------------------------------------------------------------------------
+## --PASSO 2 EDITAR como Usuario root
+vim /home/oracle/scripts/oracle
+
+#!/bin/bash
+# chkconfig: 345 99 10
+# description: Oracle auto start-stop script.
+ 
+# Set ORA_OWNER to the user id of the owner of the
+# Oracle database in ORA_HOME.
+ 
+ORA_OWNER=oracle
+RETVAL=0
+ 
+case "$1" in
+    'start')
+        # Start the Oracle databases:
+        # The following command assumes that the oracle login
+        # will not prompt the user for any values
+        su - $ORA_OWNER -c "/home/oracle/scripts/ora_start.sh"
+        touch /var/lock/subsys/oracle
+        ;;
+    'stop')
+        # Stop the Oracle databases:
+        # The following command assumes that the oracle login
+        # will not prompt the user for any values
+        su - $ORA_OWNER -c "/home/oracle/scripts/ora_stop.sh"
+        rm -f /var/lock/subsys/oracle
+        ;;
+    *)
+        echo $"Usage: $0 {start|stop}"
+        RETVAL=1
+esac
+exit $RETVAL
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+## --PASSO 3 EDITAR como Usuario ROOT
+vim /home/oracle/scripts/ora_start.sh
+
+#!/bin/bash
+ 
+# script to start the Oracle database, listener and dbconsole
+ 
+. ~/.bash_profile
+ 
+# start the listener and the database
+$ORACLE_HOME/bin/dbstart $ORACLE_HOME
+ 
+# start the Enterprise Manager db console
+$ORACLE_HOME/bin/emctl start dbconsole
+ 
+exit 0
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+## --PASSO 4 EDITAR como Usuario ROOT
+vim /home/oracle/scripts/ora_stop.sh
+
+#!/bin/bash
+ 
+# script to stop the Oracle database, listener and dbconsole
+ 
+. ~/.bash_profile
+ 
+# stop the Enterprise Manager db console
+$ORACLE_HOME/bin/emctl stop dbconsole
+ 
+# stop the listener and the database
+$ORACLE_HOME/bin/dbshut $ORACLE_HOME
+ 
+exit 0
+------------------------------------------------------------------------------------------------------------------------------------------------
+## --PASSO 5 EDITAR como Usuario ROOT
+
+
+chmod 770 -R /home/oracle/scripts
+chown oracle:root -R /home/oracle/scripts
+ln -s /home/oracle/scripts/oracle /etc/init.d/oracle
+chmod u+x /home/oracle/scripts/ora_start.sh /home/oracle/scripts/ora_stop.sh
+chkconfig --add oracle
+chkconfig --list
+
