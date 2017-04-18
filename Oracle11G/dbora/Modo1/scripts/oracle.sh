@@ -35,17 +35,17 @@ start(){
 stop(){
 	echo "Stopping..."
 	echo ""
-	echo "Starting Oracle Databases: [  ] "
+	echo "Stopping Oracle Databases: [  ] "
 	echo "--------------------------------------------------------------------------------------------------------" >> /var/log/oracleService.log
-	date +"! %T %B (%d/%m/%Y) : Starting Oracle Databases [  ]" >> /var/log/oracleService.log
+	date +"! %T %B (%d/%m/%Y) : Stopping Oracle Databases [  ]" >> /var/log/oracleService.log
 	echo " " >> /var/log/oracleService.log
 	su - $ORA_OWNER -c "$ORA_HOME/bin/emctl stop dbconsole" >> /var/log/oracleService.log
 	echo " " >> /var/log/oracleService.log
 	su - $ORA_OWNER -c "$ORA_HOME/bin/dbshut $ORA_HOME" >> /var/log/oracleService.log
 	echo " " >> /var/log/oracleService.log
-	date +"! %T %B (%d/%m/%Y) : Starting Oracle Databases [OK]" >> /var/log/oracleService.log
+	date +"! %T %B (%d/%m/%Y) : Stopping Oracle Databases [OK]" >> /var/log/oracleService.log
 	echo "--------------------------------------------------------------------------------------------------------" >> /var/log/oracleService.log
-	echo "Starting Oracle Databases: [OK] "
+	echo "Stopping Oracle Databases: [OK] "
 	echo ""
 	rm -f /var/lock/subsys/dbora
 }
