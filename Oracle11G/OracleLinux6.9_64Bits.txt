@@ -30,7 +30,6 @@ swap
 /
 ------------------------------------------------
 
-
 ## MODO 1 (Developer)
 Desktops > Fonts
 UEKA4 Kernel repo > UEKA4 Kernel repo 
@@ -42,14 +41,11 @@ Desktops > Fonts
 Servers > System administration tools
 UEKA4 Kernel repo > UEKA4 Kernel repo 
 
-
-
-
 ------------------------------------------------
 
 ------------------------------------------------
 ## PACOTES BASICOS
-## From Oracle Linux 6.9 x32Bits DVD
+## From Oracle Linux 6.9 x64 Bits DVD
  
 mount -r /dev/cdrom /media/
 cd /media/Packages/
@@ -70,24 +66,24 @@ yum check-update
 
 ## LOCAL
 ## Pacotes Dependencias Pacores Oracle Default
-yum localinstall -y cloog-ppl-0.*.el6.i686.rpm cpp-4.*.el6.i686.rpm glibc-headers-2.*.el6.i686.rpm kernel-headers-2.*.el6.i686.rpm libgomp-4.*.el6.i686.rpm mpfr-2.*.el6.i686.rpm ppl-0.*.el6.i686.rpm
+yum localinstall -y cloog-ppl-0.*.el6.x86_64.rpm cpp-4.*.el6.x86_64.rpm glibc-headers-2.*.el6.x86_64.rpm kernel-headers-2.*.el6.x86_64.rpm libgomp-4.*.el6.x86_64.rpm mpfr-2.*.el6.x86_64.rpm ppl-0.*.el6.x86_64.rpm
+
+yum localinstall -y nss-softokn-freebl-3.*.el6_8.i686.rpm glibc-2.*.el6.i686.rpm glibc-2.*.el6.x86_64.rpm glibc-common-2.*.el6.x86_64.rpm glibc-headers-2.*.el6.x86_64.rpm
 
 ## Pacores Oracle Default 
-yum localinstall -y binutils-2.*.el6.i686.rpm compat-libcap1-1.*.i686.rpm compat-libstdc++-33-3.*.el6.i686.rpm gcc-4.*.el6.i686.rpm gcc-c++-4.*.el6.i686.rpm glibc-2.*.el6.i686.rpm glibc-devel-2.*.el6.i686.rpm ksh*.el6.i686.rpm libgcc-4.*.el6.i686.rpm libstdc++-4.*.el6.i686.rpm libstdc++-devel-4.*.el6.i686.rpm libaio-0.*.el6.i686.rpm libaio-devel-0.*.el6.i686.rpm make-3.*.el6.i686.rpm sysstat-9.*.el6.i686.rpm
+yum localinstall -y binutils-2.*.el6.x86_64.rpm compat-libcap1-1.*.x86_64.rpm compat-libstdc++-33-3.*.el6.x86_64.rpm compat-libstdc++-33-3.*.el6.i686.rpm gcc-4.*.el6.x86_64.rpm gcc-c++-4.*.el6.x86_64.rpm glibc-2.*.el6.i686.rpm glibc-2.*.el6.x86_64.rpm glibc-devel-2.*.el6.x86_64.rpm glibc-devel-2.*.el6.i686.rpm ksh*.el6.x86_64.rpm libgcc-4.*.el6.i686.rpm libgcc-4.*.el6.x86_64.rpm libstdc++-4.*.el6.i686.rpm libstdc++-4.*.el6.x86_64.rpm libstdc++-devel-4.*.el6.i686.rpm libstdc++-devel-4.*.el6.x86_64.rpm libaio-0.*.el6.i686.rpm libaio-0.*.el6.x86_64.rpm libaio-devel-0.*.el6.i686.rpm libaio-devel-0.*.el6.x86_64.rpm make-3.*.el6.x86_64.rpm sysstat-9.*.el6.x86_64.rpm
 
 ## Extra para VIM
-yum localinstall -y vim-enhanced-7.*.el6_8.1.i686.rpm gpm-libs-1.*.el6.i686.rpm perl-5.*.el6.i686.rpm perl-Module-Pluggable-3.*.el6.i686.rpm perl-Pod-Escapes-1.*.el6.i686.rpm perl-Pod-Simple-3.*.el6.i686.rpm perl-libs-5.*.el6.i686.rpm perl-version-0.*.el6.i686.rpm vim-common-7.*.el6_8.1.i686.rpm vim-filesystem-7.*.el6_8.1.i686.rpm
+yum localinstall -y vim-enhanced-7.*.el6_8.1.x86_64.rpm gpm-libs-1.*.el6.x86_64.rpm perl-5.*.el6.x86_64.rpm perl-Module-Pluggable-3.*.el6.x86_64.rpm perl-Pod-Escapes-1.*.el6.x86_64.rpm perl-Pod-Simple-3.*.el6.x86_64.rpm perl-libs-5.*.el6.x86_64.rpm perl-version-0.*.el6.x86_64.rpm vim-common-7.*.el6_8.1.x86_64.rpm vim-filesystem-7.*.el6_8.1.x86_64.rpm
 
 ## Extra para WGET e NANO
-yum localinstall -y wget-1.*.el6.i686.rpm nano-2.*.el6.i686.rpm
+yum localinstall -y wget-1.*.el6.x86_64.rpm nano-2.*.el6.x86_64.rpm
  
 ## Extra para x11-xauth e apps (xclock xeyes)
-yum localinstall -y xorg-x11-xauth-1.0.9-1.el6.i686.rpm libICE-1.*.el6.i686.rpm libSM-1.*.el6.i686.rpm libX11-1.*.el6.i686.rpm libX11-common-1.*.el6.noarch.rpm libXau-1.*.el6.i686.rpm libXext-1.*.el6.i686.rpm libXmu-1.*.el6.i686.rpm libXt-1.*.el6.i686.rpm libxcb-1.*.el6.i686.rpm xorg-x11-utils-7.*.el6.i686.rpm libXi-1.*.el6.i686.rpm libXinerama-1.*.el6.i686.rpm libXrandr-1.*.el6.i686.rpm libXrender-0.*.el6.i686.rpm libXtst-1.*.el6.i686.rpm libXv-1.*.el6.i686.rpm libXxf86dga-1.*.el6.i686.rpm libXxf86misc-1.*.el6.i686.rpm libXxf86vm-1.*.el6.i686.rpm libdmx-1.*.el6.i686.rpm xorg-x11-font-utils-7.*.el6.i686.rpm xorg-x11-fonts-*.el6.noarch.rpm fontconfig-2.*.el6.i686.rpm freetype-2.*.el6.i686.rpm libXfont-1.*.el6.i686.rpm libfontenc-1.*.el6.i686.rpm ttmkfdir-3.*.el6.i686.rpm xorg-x11-apps-7.*.i686.rpm libXaw-1.*.el6.i686.rpm libXcursor-1.*.el6.i686.rpm libXfixes-5.*.el6.i686.rpm libXft-2.*.el6.i686.rpm libXpm-3.*.el6.i686.rpm libpng-1.*.el6_7.i686.rpm libxkbfile-1.*.el6.i686.rpm
-
+yum localinstall -y xorg-x11-apps-7.*.el6.x86_64.rpm xorg-x11-font-utils-7.*.el6.x86_64.rpm xorg-x11-fonts-*.el6.noarch.rpm xorg-x11-utils-7.*.el6.x86_64.rpm xorg-x11-xauth-1.*.el6.x86_64.rpm fontconfig-2.*.el6.x86_64.rpm freetype-2.*.el6.x86_64.rpm libICE-1.*.el6.x86_64.rpm libSM-1.*.el6.x86_64.rpm libX11-1.*.el6.x86_64.rpm libX11-common-1.*.el6.noarch.rpm libXau-1.*.el6.x86_64.rpm libXaw-1.*.el6.x86_64.rpm libXcursor-1.*.el6.x86_64.rpm  libXext-1.*.el6.x86_64.rpm libXfixes-5.*.el6.x86_64.rpm libXfont-1.*.el6.x86_64.rpm libXft-2.*.el6.x86_64.rpm libXi-1.*.el6.x86_64.rpm libXinerama-1.*.el6.x86_64.rpm libXmu-1.*.el6.x86_64.rpm libXpm-3.*.el6.x86_64.rpm libXrandr-1.*.el6.x86_64.rpm libXrender-0.*.el6.x86_64.rpm libXt-1.*.el6.x86_64.rpm libXtst-1.*.el6.x86_64.rpm libXv-1.*.el6.x86_64.rpm libXxf86dga-1.*.el6.x86_64.rpm libXxf86misc-1.*.el6.x86_64.rpm libXxf86vm-1.*.el6.x86_64.rpm libdmx-1.*.el6.x86_64.rpm libfontenc-1.*.el6.x86_64.rpm libpng-1.*.el6_7.x86_64.rpm libxcb-1.*.el6.x86_64.rpm libxkbfile-1.*.el6.x86_64.rpm ttmkfdir-3.*.el6.x86_64.rpm
 
 ## Dependencias Pacores ORACLE-RDBMS-SERVER-11GR2-PREINSTALL
-yum localinstall -y bind-libs-9.*.el6.i686.rpm bind-utils-9.*.el6.i686.rpm keyutils-1.*.el6.i686.rpm libXi-1.*.el6.i686.rpm libXinerama-1.*.el6.i686.rpm libXrandr-1.*.el6.i686.rpm libXtst-1.*.el6.i686.rpm libXv-1.*.el6.i686.rpm libXxf86dga-1.*.el6.i686.rpm libXxf86misc-1.*.el6.i686.rpm libdmx-1.*.el6.i686.rpm libedit-2.*.el6.i686.rpm libevent-1.*.el6.i686.rpm libgssglue-0.*.el6.i686.rpm libtirpc-0.*.el6.i686.rpm mailx-12.*.el6_6.i686.rpm nfs-utils-1.*.el6.i686.rpm nfs-utils-lib-1.*.el6.i686.rpm openssh-clients-5.*.el6.i686.rpm python-argparse-1.*.el6.noarch.rpm rpcbind-0.*.el6.i686.rpm smartmontools-5.*.el6.i686.rpm xorg-x11-utils-7.*.el6.i686.rpm
-
+yum localinstall -y bind-libs-9.*.el6.x86_64.rpm bind-utils-9.*.el6.x86_64.rpm keyutils-1.*.el6.x86_64.rpm libedit-2.*.el6.x86_64.rpm libevent-1.*.el6.x86_64.rpm libgssglue-0.*.el6.x86_64.rpm libtirpc-0.*.el6.x86_64.rpm mailx-12.*.el6_6.x86_64.rpm nfs-utils-1.*.el6.x86_64.rpm nfs-utils-lib-1.*.el6.x86_64.rpm openssh-clients-5.*.el6.x86_64.rpm python-argparse-1.*.el6.noarch.rpm rpcbind-0.*.el6.x86_64.rpm smartmontools-5.*.el6.x86_64.rpm 
 
 ## Update GERAL
 yum update
@@ -95,16 +91,12 @@ reboot
 
 ## Pre Install Oracle SOMENTE NO FINAL ANTE DE RODAR O INSTALADOR ORACLE(Copiar pacote para Server)
 ## yum install --downloadonly --downloaddir=/home/ oracle-rdbms-server-11gR2-preinstall
-yum localinstall oracle-rdbms-server-11gR2-preinstall-1.0-13.el6.i686.rpm
-
+yum localinstall oracle-rdbms-server-11gR2-preinstall-1.0-13.el6.x86_64.rpm
 
 ---------------------
 ## REMOTO
 ## Pacotes Dependencias Pacores Oracle Default
-yum install cloog-ppl-0.*.el6.i686 cpp-4.*.el6.i686 glibc-headers-2.*.el6.i686 kernel-headers-2.*.el6.i686 libgomp-4.*.el6.i686 mpfr-2.*.el6.i686 ppl-0.*.el6.i686
-
-## Pacores Oracle Default 
-yum install binutils-2.*.el6.i686 compat-libcap1-1.*.i686 compat-libstdc++-33-3.*.el6.i686 gcc-4.*.el6.i686 gcc-c++-4.*.el6.i686 glibc-2.*.el6.i686 glibc-devel-2.*.el6.i686 ksh*.el6.i686 libgcc-4.*.el6.i686 libstdc++-4.*.el6.i686 libstdc++-devel-4.*.el6.i686 libaio-0.*.el6.i686 libaio-devel-0.*.el6.i686 make-3.*.el6.i686 sysstat-9.*.el6.i686
+yum install binutils-2.*.el6.x86_64 compat-libcap1-1.*.x86_64 compat-libstdc++-33-3.*.el6.x86_64 compat-libstdc++-33-3.*.el6.i686 gcc-4.*.el6.x86_64 gcc-c++-4.*.el6.x86_64 glibc-2.*.el6.i686 glibc-2.*.el6.x86_64 glibc-devel-2.*.el6.x86_64 glibc-devel-2.*.el6.i686 ksh*.el6.x86_64 libgcc-4.*.el6.i686 libgcc-4.*.el6.x86_64 libstdc++-4.*.el6.i686 libstdc++-4.*.el6.x86_64 libstdc++-devel-4.*.el6.i686 libstdc++-devel-4.*.el6.x86_64 libaio-0.*.el6.i686 libaio-0.*.el6.x86_64 libaio-devel-0.*.el6.i686 libaio-devel-0.*.el6.x86_64 make-3.*.el6.x86_64 sysstat-9.*.el6.x86_64
 
 ## Extra para X11Forwarding
 yum install wget vim nano xclock xeyes xorg-x11-xauth xorg-x11-font* xorg-x11-utils 
@@ -116,7 +108,6 @@ yum install oracle-rdbms-server-11gR2-preinstall
 ## Update GERAL
 yum update
 reboot
-
 ------------------------------------------------------------------------------------------------------------------------------------------------
 ## ADD GRUPOS 
 groupadd -g 54321 oinstall
@@ -249,7 +240,7 @@ sudo init 6
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
 ## INSTALL JAVA SE FOR RODAR ORACLE SQLDEVELOPER OU ORACLE DATAMODELER
-rpm -ivh /home/oracle/jdk-8u102-linux-i586.rpm
+rpm -ivh /home/oracle/jdk-8u102-linux-x64.rpm
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
 #Diretorio para Instalar Oracle PADRAO --> OFA (Optimal Flexible Architecture)
