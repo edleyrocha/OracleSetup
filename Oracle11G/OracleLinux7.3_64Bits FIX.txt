@@ -1,0 +1,47 @@
+FIX SETUP FOR ORACLE 7
+
+#DESCOMPACTAR SETUP
+cd /home/
+unzip V46095-01_1of2.zip
+unzip V46095-01_2of2.zip
+
+------------------------------------------------------------
+# PDKSH-5.2.14 via Setup 
+# FIX ERRO via Setup
+vim /home/database/stage/cvu/cv/admin/cvu_config
+
+#Editar Linha :
+CV_ASSUME_DISTID=OEL5
+
+#Para
+CV_ASSUME_DISTID=OEL7
+
+
+FIX
+http://oradata.com.br/pdksh-5-2-14/
+------------------------------------------------------------
+
+
+
+
+
+ORACLE_SRC_INSTALL_DIR=/home/database
+cd ${ORACLE_SRC_INSTALL_DIR}/stage/Components
+ 
+jar_file=
+for i_file in $( ls ./oracle.sysman.agent/*/1/DataFiles/filegroup*.jar ); do
+unzip -l ${i_file} sysman/lib/ins_emagent.mk 2>&1 1>/dev/null
+[[ $? -eq 0 ]] && jar_file=${i_file} && break
+done
+ 
+unzip ${jar_file} sysman/lib/ins_emagent.mk 2>&1 1>/dev/null
+if [[ $? -eq 0 ]]; then
+sed -i -e 's/\$(MK_EMAGENT_NMECTL)/\$(MK_EMAGENT_NMECTL) -lnnz11/g' sysman/lib/ins_emagent.mk
+jar -uvf  ${jar_file} sysman/lib/ins_emagent.mk
+fi
+
+
+
+
+
+tar -zcvf archive-name.tar.gz directory-name

@@ -1,0 +1,19 @@
+----------------------------------------------------------------------------------------------------------------------------------
+##INSTALAR ORACLE MODO SILENCIOSO
+#Mudar Permiçao dos Arquivos como ROOT
+chmod 700 /home/oracle/installOnly.rsp 
+chown oracle:oinstall /home/oracle/installOnly.rsp
+-------------
+#Instalar Modo Silencioso como ORACLE
+/media/Oracle11G_x64/1_Database/./runInstaller -silent -responseFile /home/oracle/installOnly.rsp
+
+ou 
+
+cd /media/Oracle11G_x64/1_Database/
+./runInstaller -silent -responseFile /home/oracle/installOnly.rsp
+-------------
+
+#Ver log
+tail -f  /u01/app/oraInventory/logs/installActions*.log
+----------------------------------------------------------------------------------------------------------------------------------
+

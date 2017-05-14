@@ -21,40 +21,36 @@ ETH LINUX    : ETH1
 MODO IP      : FIXO
 HOST         : BRIDGET
 MAC          : 00:50:56:BB:BB:BB
-
-
 ------------------------------------------------
 ## ESQUEMA PARTIÇÃO SIMPLES
 /boot
 swap
 /
 ------------------------------------------------
-
 ## MODO 1 (Developer)
-Desktops > Fonts
-UEKA4 Kernel repo > UEKA4 Kernel repo 
+Base Environment > Minimal Install 
 
 ## MODO 2 (Producao)
-Base System > Base                     
-Base System > Compatibility libraries
-Desktops > Fonts
-Servers > System administration tools
-UEKA4 Kernel repo > UEKA4 Kernel repo 
+Base Environment > Minimal Install 
+Add-Ons for Selected Environment > Compatibility Libraries
+Add-Ons for Selected Environment > Development Tools
+Add-Ons for Selected Environment > Security Tools
 
-------------------------------------------------
-
-------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------
 ## PACOTES BASICOS
 ## From Oracle Linux 7.3 x64 Bits DVD
  
+#Montar DVD 
 mount -r /dev/cdrom /media/
 cd /media/Packages/
 
+#Desmontar DVD
 umount -f /dev/cdrom
-## eject cd
+
+## eject DVD
 eject 
  
-## FOR_ORACLE6.9
+## FOR_ORACLE7.3
 
 yum clean all
 yum clean packages
@@ -69,13 +65,13 @@ yum check-update
 yum localinstall cpp-4.*.el7.x86_64.rpm glibc-headers-2.*.el7.x86_64.rpm kernel-headers-3.*.el7.x86_64.rpm libX11-1.*.el7.i686.rpm libXau-1.*.el7.i686.rpm libXext-1.*.el7.i686.rpm libmpc-1.*.el7.x86_64.rpm libxcb-1.*.el7.i686.rpm lm_sensors-libs-3.*.el7.x86_64.rpm mpfr-3.*.el7.x86_64.rpm nss-softokn-freebl-3.*.el7.i686.rpm glibc-2.*.el7.i686.rpm 
 
 ## Pacores Oracle Default 
-yum localinstall binutils-2.*.el7.x86_64.rpm compat-libcap1-1.*.el7.x86_64.rpm compat-libstdc++-33-3.*.el7.i686.rpm compat-libstdc++-33-3.*.el7.x86_64.rpm gcc-4.*.el7.x86_64.rpm gcc-c++-4.*.el7.x86_64.rpm glibc-2.*.el7.i686.rpm glibc-2.*.el7.x86_64.rpm glibc-devel-2.*.el7.i686.rpm glibc-devel-2.*.el7.x86_64.rpm ksh*.el7.x86_64.rpm libaio-0.*.el7.i686.rpm libaio-0.*.el7.x86_64.rpm libaio-devel-0.*.el7.i686.rpm libaio-devel-0.*.el7.x86_64.rpm libgcc-4.*.el7.i686.rpm libgcc-4.*.el7.x86_64.rpm libstdc++-4.*.el7.i686.rpm libstdc++-4.*.el7.x86_64.rpm libstdc++-devel-4.*.el7.i686.rpm libstdc++-devel-4.*.el7.x86_64.rpm libXi-1.*.el7.i686.rpm libXi-1.*.el7.x86_64.rpm libXtst-1.*.el7.i686.rpm libXtst-1.*.el7.x86_64.rpm make-3.*.el7.x86_64.rpm sysstat-10.*.el7.x86_64.rpm
+yum localinstall binutils-2.*.el7.x86_64.rpm compat-libcap1-1.*.el7.x86_64.rpm compat-libstdc++-33-3.*.el7.i686.rpm compat-libstdc++-33-3.*.el7.x86_64.rpm gcc-4.*.el7.x86_64.rpm gcc-c++-4.*.el7.x86_64.rpm glibc-2.*.el7.i686.rpm glibc-2.*.el7.x86_64.rpm glibc-devel-2.*.el7.i686.rpm glibc-devel-2.*.el7.x86_64.rpm ksh*.el7.x86_64.rpm libaio-0.*.el7.i686.rpm libaio-0.*.el7.x86_64.rpm libaio-devel-0.*.el7.i686.rpm libaio-devel-0.*.el7.x86_64.rpm libgcc-4.*.el7.i686.rpm libgcc-4.*.el7.x86_64.rpm libstdc++-4.*.el7.i686.rpm libstdc++-4.*.el7.x86_64.rpm libstdc++-devel-4.*.el7.i686.rpm libstdc++-devel-4.*.el7.x86_64.rpm libXi-1.*.el7.i686.rpm libXi-1.*.el7.x86_64.rpm libXtst-1.*.el7.i686.rpm libXtst-1.*.el7.x86_64.rpm make-3.*.el7.x86_64.rpm sysstat-10.*.el7.x86_64.rpm zlib-devel-1.*.el7.x86_64.rpm elfutils-libelf-devel-0.*.el7.x86_64.rpm
 
 ## Extra para VIM
 yum localinstall vim-enhanced-7.*.el7.x86_64.rpm gpm-libs-1.*.el7.x86_64.rpm perl-5.*.el7.x86_64.rpm perl-Carp-1.*.el7.noarch.rpm perl-Encode-2.*.el7.x86_64.rpm perl-Exporter-5.*.el7.noarch.rpm perl-File-Path-2.*.el7.noarch.rpm perl-File-Temp-0.*.el7.noarch.rpm perl-Filter-1.*.el7.x86_64.rpm perl-Getopt-Long-2.*.el7.noarch.rpm perl-HTTP-Tiny-0.*.el7.noarch.rpm perl-PathTools-3.*.el7.x86_64.rpm perl-Pod-Escapes-1.*.el7.noarch.rpm perl-Pod-Perldoc-3.*.el7.noarch.rpm perl-Pod-Simple-3.*.el7.noarch.rpm perl-Pod-Usage-1.*.el7.noarch.rpm perl-Scalar-List-Utils-1.*.el7.x86_64.rpm perl-Socket-2.*.el7.x86_64.rpm perl-Storable-2.*.el7.x86_64.rpm perl-Text-ParseWords-3.*.el7.noarch.rpm perl-Time-HiRes-1.*.el7.x86_64.rpm perl-Time-Local-1.*.el7.noarch.rpm perl-constant-1.*.el7.noarch.rpm perl-libs-5.*.el7.x86_64.rpm perl-macros-5.*.el7.x86_64.rpm perl-parent-0.*.el7.noarch.rpm perl-podlators-2.*.el7.noarch.rpm perl-threads-1.*.el7.x86_64.rpm perl-threads-shared-1.*.el7.x86_64.rpm vim-common-7.*.el7.x86_64.rpm vim-filesystem-7.*.el7.x86_64.rpm
 
-## Extra para WGET e NANO
-yum localinstall wget-1.*.el7.x86_64.rpm nano-2.*.el7.x86_64.rpm
+## Extra para WGET e NANO ZIP UNZIP
+yum localinstall wget-1.*.el7.x86_64.rpm nano-2.*.el7.x86_64.rpm zip-3.*.el7.x86_64.rpm unzip-6.*.el7.x86_64.rpm 
  
 ## Extra para x11-xauth e apps (xclock xeyes)
 yum localinstall xorg-x11-apps-7.*.el7.x86_64.rpm xorg-x11-font-utils-7.*.el7.x86_64.rpm xorg-x11-fonts-*.el7.noarch.rpm xorg-x11-utils-7.*.el7.x86_64.rpm xorg-x11-xauth-1.*.el7.x86_64.rpm libICE-1.*.el7.x86_64.rpm libSM-1.*.el7.x86_64.rpm libXaw-1.*.el7.x86_64.rpm libXfont-1.*.el7.x86_64.rpm libXmu-1.*.el7.x86_64.rpm libXpm-3.*.el7.x86_64.rpm libXt-1.*.el7.x86_64.rpm libXv-1.*.el7.x86_64.rpm libXxf86dga-1.*.el7.x86_64.rpm libXxf86misc-1.*.el7.x86_64.rpm libdmx-1.*.el7.x86_64.rpm libfontenc-1.*.el7.x86_64.rpm libxkbfile-1.*.el7.x86_64.rpm ttmkfdir-3.*.el7.x86_64.rpm
@@ -83,25 +79,34 @@ yum localinstall xorg-x11-apps-7.*.el7.x86_64.rpm xorg-x11-font-utils-7.*.el7.x8
 ## Dependencias Pacores ORACLE-RDBMS-SERVER-11GR2-PREINSTALL
 yum localinstall bind-libs-9.*.el7.x86_64.rpm bind-utils-9.*.el7.x86_64.rpm gssproxy-0.*.el7.x86_64.rpm keyutils-1.*.el7.x86_64.rpm libbasicobjects-0.*.el7.x86_64.rpm libcollection-0.*.el7.x86_64.rpm libevent-2.*.el7.x86_64.rpm libini_config-1.*.el7.x86_64.rpm libnfsidmap-0.*.el7.x86_64.rpm libpath_utils-0.*.el7.x86_64.rpm libref_array-0.*.el7.x86_64.rpm libtalloc-2.*.el7.x86_64.rpm libtevent-0.*.el7.x86_64.rpm libtirpc-0.*.el7.x86_64.rpm libverto-tevent-0.*.el7.x86_64.rpm mailx-12.*.el7_0.x86_64.rpm nfs-utils-1.*.el7.x86_64.rpm psmisc-22.*.el7.x86_64.rpm quota-4.*.el7.x86_64.rpm quota-nls-4.*.el7.noarch.rpm rpcbind-0.*.el7.x86_64.rpm smartmontools-6.*.el7.x86_64.rpm tcp_wrappers-7.*.el7.x86_64.rpm 
 
-## Update GERAL
+## Update GERAL 
 yum update
+
+#Corrigir --> warning: /etc/nsswitch.conf created as /etc/nsswitch.conf.rpmnew
+mv /etc/nsswitch.conf /etc/nsswitch.conf_Backup_ORIGINAL
+mv /etc/nsswitch.conf.rpmnew /etc/nsswitch.conf
+
+#Reboot
 reboot
 
 ## Pre Install Oracle SOMENTE NO FINAL ANTE DE RODAR O INSTALADOR ORACLE(Copiar pacote para Server)
-## yum install --downloadonly --downloaddir=/home/ oracle-rdbms-server-11gR2-preinstall
-yum localinstall oracle-rdbms-server-11gR2-preinstall-1.*.el7.x86_64.rpm
-
+## yum install oracle-rdbms-server-11gR2-preinstall --downloadonly --downloaddir=/home/
+yum localinstall /home/oracle-rdbms-server-11gR2-preinstall-1.*.el7.x86_64.rpm
+oracle-rdbms-server-11gR2-preinstall-verify
 ---------------------
 ## REMOTO
 ## Pacotes Dependencias Pacores Oracle Default
-yum install binutils-2.*.el7.x86_64 compat-libcap1-1.*.el7.x86_64 compat-libstdc++-33-3.*.el7.i686 compat-libstdc++-33-3.*.el7.x86_64 gcc-4.*.el7.x86_64 gcc-c++-4.*.el7.x86_64 glibc-2.*.el7.i686 glibc-2.*.el7.x86_64 glibc-devel-2.*.el7.i686 glibc-devel-2.*.el7.x86_64 ksh*.el7.x86_64 libaio-0.*.el7.i686 libaio-0.*.el7.x86_64 libaio-devel-0.*.el7.i686 libaio-devel-0.*.el7.x86_64 libgcc-4.*.el7.i686 libgcc-4.*.el7.x86_64 libstdc++-4.*.el7.i686 libstdc++-4.*.el7.x86_64 libstdc++-devel-4.*.el7.i686 libstdc++-devel-4.*.el7.x86_64 libXi-1.*.el7.i686 libXi-1.*.el7.x86_64 libXtst-1.*.el7.i686 libXtst-1.*.el7.x86_64 make-3.*.el7.x86_64 sysstat-10.*.el7.x86_64
+yum install binutils-2.*.el7.x86_64 compat-libcap1-1.*.el7.x86_64 compat-libstdc++-33-3.*.el7.i686 compat-libstdc++-33-3.*.el7.x86_64 gcc-4.*.el7.x86_64 gcc-c++-4.*.el7.x86_64 glibc-2.*.el7.i686 glibc-2.*.el7.x86_64 glibc-devel-2.*.el7.i686 glibc-devel-2.*.el7.x86_64 ksh*.el7.x86_64 libaio-0.*.el7.i686 libaio-0.*.el7.x86_64 libaio-devel-0.*.el7.i686 libaio-devel-0.*.el7.x86_64 libgcc-4.*.el7.i686 libgcc-4.*.el7.x86_64 libstdc++-4.*.el7.i686 libstdc++-4.*.el7.x86_64 libstdc++-devel-4.*.el7.i686 libstdc++-devel-4.*.el7.x86_64 libXi-1.*.el7.i686 libXi-1.*.el7.x86_64 libXtst-1.*.el7.i686 libXtst-1.*.el7.x86_64 make-3.*.el7.x86_64 sysstat-10.*.el7.x86_64 zlib-devel-1.*.el7.x86_64 elfutils-libelf-devel-0.*.el7.x86_64
 
 ## Extra para X11Forwarding
-yum install wget vim nano xclock xeyes xorg-x11-xauth xorg-x11-font* xorg-x11-utils 
+yum install wget vim nano xclock xeyes xorg-x11-xauth xorg-x11-font* xorg-x11-utils zip unzip
+
+
 
 ## Automatico 
 # Pre Install Oracle SOMENTE NO FINAL ANTE DE RODAR O INSTALADOR ORACLE
 yum install oracle-rdbms-server-11gR2-preinstall
+oracle-rdbms-server-11gR2-preinstall-verify
 
 ## Update GERAL
 yum update
@@ -127,10 +132,14 @@ usermod -u 54321 -g oinstall -G dba,per oracle
 ou
 usermod -u 54321 -g oinstall -G dba,oper,backupdba,dgdba,kmdba,asmdba,asmoper,asmadmin oracle
 
+## VERIFICIAR USER ORACLE
 cat /etc/passwd | grep oracle
 
-#Criar senha para Usuario oracle
+## CRIAR SENHA PARA USUARIO ORACLE
 passwd oracle
+------------------------------------------------------------------------------------------------------------------------------------------------
+#VIM Set number
+echo "set number" >> /etc/vimrc
 ------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## EDITAR vim /etc/ssh/sshd_config
@@ -139,14 +148,297 @@ X11DisplayOffset 10
 #habilitar para abrir setup oracle
 X11UseLocalhost yes
 
+#Reload Service
+systemctl reload  sshd.service
+
+VIA PUTTY
 ## CRIAR /home/oracle/.Xauthority ERRO --> /usr/bin/xauth:  file /home/oracle/.Xauthority does not exist
 xauth list
 xauth generate $DISPLAY
 
+VIA MobaXterm
 #Logar como usuario oracle e testar xclock ou  xeyes
- 
+export DISPLAY="enderecoip:0.0"
+
+#Resolver MSG -> ADD em (.bash_profile ) --> Warning: Missing charsets in String to FontSet conversion
+export LC_ALL=C;
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+## EDIT VIA VIM (" /etc/selinux/config ") ADD
+
+vim /etc/selinux/config
+
+#Report Status
+sestatus -v
+getenforce
+
+#Editar
+vim /etc/selinux/config
+SELINUX=disabled
+
+setenforce Permissive
+
+## Reboot
+sudo init 6
+
 ------------------------------------------------------------------------------------------------------------------------------------------------
 
+## Verificiar nome rede cat /etc/sysconfig/network  EDITAR HOST
+
+vim /etc/hosts  
+
+192.168.100.250	serveroracle serveroracle.localdomain
+127.0.0.1       localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1             localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+## Desativar Iptables (Stop Disable)
+#Stop
+systemctl stop firewalld.service
+systemctl disable firewalld.service
+
+#Start
+systemctl start firewalld
+systemctl enable firewalld.service
+
+#Restart
+systemctl restart firewalld.service
+
+#Status
+systemctl status firewalld
+systemctl status firewalld.service
+
+
+Removed symlink /etc/systemd/system/dbus-org.fedoraproject.FirewallD1.service.
+Removed symlink /etc/systemd/system/basic.target.wants/firewalld.service.
+------------------------------------------------------------------------------------------------------------------------------------------------
+## INSTALL JAVA SE FOR RODAR ORACLE SQLDEVELOPER OU ORACLE DATAMODELER
+rpm -ivh /home/jdk-*-linux-x64.rpm
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+#Diretorio para Instalar Oracle PADRAO --> OFA (Optimal Flexible Architecture)
+
+mkdir -p /u01/app/oraInventory
+mkdir -p /u01/app/oracle/fast_recovery_area/
+mkdir -p /u01/app/oracle/oradata
+mkdir -p /u01/app/oracle/product/11.2.0.4/db_1
+chown -R oracle:oinstall /u01
+chmod -R 775 /u01
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+## Fazer Backup do Profile Atual
+mv /home/oracle/.bash_profile /home/oracle/.bash_profile_backup_ORIGINAL
+chown oracle:oinstall /home/oracle/.bash_profile_backup_ORIGINAL
+
+
+## Criar Arquivo e no final rodar chown
+vim /home/oracle/.bash_profile
+
+
+# .bash_profile
+######################################################
+# ---------------------------------------------------#
+# .bash_profile                                      #
+# ---------------------------------------------------#
+# OS User: oracle                                    #
+# Application: Oracle Database Software Owner        #
+# Version: Oracle 11G Release 2                      #
+# ---------------------------------------------------#
+######################################################
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+#####################################################
+# User specific environment and startup programs
+PATH=$PATH:$HOME/.local/bin:$HOME/bin;
+export PATH;
+#####################################################
+# ------------ 
+# SE HABILITAR O USUARIO NAO LOGA VIA TELA DE LOGIN 
+#export DISPLAY=serveroracle:0.0;    
+# ------------
+# JAVA_HOME
+export JAVA_HOME=/usr/bin/java;
+# ------------
+# TEMP
+export TMP=/tmp;
+export TMPDIR=$TMP;
+# ------------
+# USER ORACLE
+export ORACLE_OWNER=oracle;
+# ------------
+# HOST NAME
+export ORACLE_HOSTNAME=192.168.100.250;
+# ------------
+# ORACLE DATABASE E SID
+export ORACLE_UNQNAME=oracledb;
+export ORACLE_SID=oracledb;
+# ------------
+# ORACLE DIR
+export ORACLE_BASE=/u01/app/oracle;
+export ORACLE_HOME=$ORACLE_BASE/product/11.2.0.4/db_1;
+export DB_HOME=$ORACLE_BASE/oradata;
+# ------------
+# CONFIG TNS
+export TNS_ADMIN=$ORACLE_HOME/network/admin;
+# ------------
+# Config  TO_CHAR and TO_DATE functions
+export NLS_DATE_FORMAT="DD-MON-YYYY HH24:MI:SS";
+# ------------
+# TERM environment variable
+export ORACLE_TERM=xterm;
+# ------------
+# User specific environment and startup programs;
+export BASE_PATH=$PATH
+export PATH=$ORACLE_HOME/bin:$HOME/bin:/usr/sbin:$BASE_PATH;
+export LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib;
+export CLASSPATH=$ORACLE_HOME/JRE:$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib;
+# ------------
+# Umask 
+umask 022;
+#------------
+# IF User Oracle
+if [ $USER = "oracle" ]; then
+    if [ $SHELL = "/bin/ksh" ]; then
+        ulimit -p 16384
+        ulimit -n 65536
+    else
+        ulimit -u 16384 -n 65536
+    fi
+fi
+#------------
+#####################################################
+#ALIAS
+alias ls='ls -lha --color=auto'
+alias sql='sqlplus /nolog'
+alias home='cd $ORACLE_HOME'
+#alias db='export ORACLE_SID=oracledb'
+#####################################################
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+INSTALAR 
+
+## Automatico 
+# Pre Install Oracle SOMENTE NO FINAL ANTE DE RODAR O INSTALADOR ORACLE
+yum install oracle-rdbms-server-11gR2-preinstall
+
+## Update GERAL
+yum update
+reboot
+
+#MONTAR CD E INSTALAR ORACLE
+mount -r /dev/cdrom /media/
+
+#Desmontar
+umount -f /dev/cdrom
+
+
+## INSTAÇAR ORACLE 
+## O pacote "pdksh" será listado como ausente, o que pode ser ignorado porque instalamos o pacote "ksh" em vez disso.
+## Durante a fase de Instalaçao, você encontrará um erro ao invocar o arquivo "ins_emagent.mk"
+## Para corrigir isso, edite o "$ORACLE_HOME/sysman/lib/ins_emagent.mk", fazendo uma pesquisa e substitua a linha mostrada abaixo.
+--- FIX MODO 1
+vim $ORACLE_HOME/sysman/lib/ins_emagent.mk
+#Procurar e Editar Linha ( 176 ):
+   $(MK_EMAGENT_NMECTL)
+#PARA :
+   $(MK_EMAGENT_NMECTL) -lnnz11
+--- 
+Clique no botão "Repetir".
+--- FIX MODO 2
+ORACLE_HOME=/u01/app/oracle/product/11.2.0.4/db_1;
+ if [[ -e "${ORACLE_HOME}/sysman/lib/ins_emagent.mk" ]]; then
+sed -i -e 's/\$(MK_EMAGENT_NMECTL)/\$(MK_EMAGENT_NMECTL) -lnnz11/g' ${ORACLE_HOME}/sysman/lib/ins_emagent.mk
+fi
+---
+Clique no botão "Repetir".
+---
+#Rodar Instalador
+$cd /media/Oracle11G_x64/1_Database/
+$./runInstaller
+
+ou
+
+$/media/Oracle11G_x64/1_Database/./runInstaller &
+$ 
+
+## Executar como root antes de Fechar INSTALADOR
+/u01/app/oraInventory/./orainstRoot.sh
+/u01/app/oracle/product/11.2.0.4/db_1/./root.sh
+ 
+#Criar LISTNER
+netca
+
+#Criar DB
+dbca
+
+#Check LISTNER
+lsnrctl status
+
+#Check DBCONSOLE
+emctl status dbconsole
+emctl start dbconsole
+emctl stop dbconsole
+
+#CHECK AGENTE
+emctl status agent
+emctl start agent
+emctl stop agent
+
+#CRIAR ENTERPRISE MANEGAR
+emca
+emca -config dbcontrol db
+ 
+
+## OUTROS HABILITAR
+BI
+PM
+IX
+SH
+OE
+HR
+
+BI: Business Intelligence
+PM: Product Media
+IX: Information Exchange
+SH: Sales History
+OE: Order Entry
+HR: Human Resources
+
+Schema HR – Division Human Resources tracks information about the company employees and facilities.
+Schema OE – Division Order Entry tracks product inventories and sales of company products through various channels.
+Schema PM – Division Product Media maintains descriptions and detailed information about each product sold by the company.
+Schema IX – Division Information Exchange manages shipping through B2B applications.
+Schema SH – Division Sales tracks business statistics to facilitate business decisions.
+
+## OUTROS
+/u01/app/oraInventory/logs/installActions2017-04-15_11-58-16AM.log
+
+/u01/app/oracle/admin/oracledb/scripts
+
+/u01/app/oracle/product/11.2.0.4/db_1/192.168.100.250_oracledb/sysman/config/emkey.ora
+
+/u01/app/oracle/product/11.2.0.4/db_1/dbs/spfileoracledb.ora
+
+https://192.168.100.250:1158/em/console/aboutApplication
+https://serveroracle.localdomain:1158/em/
+https://192.168.100.250:1158/em
+------------------------------------------------------------------------------------------------------------------------------------------------
+#Install VMware Tools
+mount -r /dev/dvd /media/
+ls -lha /media/
+tar -zxpf /media/VMwareTools*.tar.gz -C /tmp/
+chmod +x /tmp/vmware-tools-distrib/vmware-install.pl
+/tmp/vmware-tools-distrib/./vmware-install.pl
+rm -rf /tmp/vmware-tools-distrib/
+
+
+#Re-Config 
+/usr/bin/vmware-config-tools.pl
+ 
+------------------------------------------------------------------------------------------------------------------------------------------------
 #Banner SSH
 #vim /etc/ssh/sshd_config
 #Banner /etc/issue.net
@@ -189,235 +481,4 @@ cat <<EOF > /etc/motd
 #
 #
 EOF
-
-
-
-
-
-------------------------------------------------------------------------------------------------------------------------------------------------
-
-## Verificiar nome rede cat /etc/sysconfig/network  EDITAR HOST
-
-vim /etc/hosts  
-
-192.168.100.250	serveroracle serveroracle.localdomain
-127.0.0.1       localhost localhost.localdomain localhost4 localhost4.localdomain4
-::1             localhost localhost.localdomain localhost6 localhost6.localdomain6
-
-------------------------------------------------------------------------------------------------------------------------------------------------
-## Desativar Iptables
-
-service iptables stop
-chkconfig iptables off
-service iptables status
-
-
-service ip6tables stop
-chkconfig ip6tables off
-service ip6tables status
-
-chkconfig --list
-------------------------------------------------------------------------------------------------------------------------------------------------
-## EDIT VIA VIM (" /etc/selinux/config ") ADD
-
-vim /etc/selinux/config
-
-#Report Status
-sestatus -v
-getenforce
-
-#Editar
-vim /etc/selinux/config
-SELINUX=disabled
-
-setenforce Permissive
-
-## Reboot
-sudo init 6
-
-
-------------------------------------------------------------------------------------------------------------------------------------------------
-## INSTALL JAVA SE FOR RODAR ORACLE SQLDEVELOPER OU ORACLE DATAMODELER
-rpm -ivh /home/oracle/jdk-8u102-linux-x64.rpm
-
-------------------------------------------------------------------------------------------------------------------------------------------------
-#Diretorio para Instalar Oracle PADRAO --> OFA (Optimal Flexible Architecture)
-
-mkdir -p /u01/app/oraInventory
-mkdir -p /u01/app/oracle/fast_recovery_area/
-mkdir -p /u01/app/oracle/oradata
-mkdir -p /u01/app/oracle/product/11.2.0.4/db_1
-chown -R oracle:oinstall /u01
-chmod -R 775 /u01
-
-
-------------------------------------------------------------------------------------------------------------------------------------------------
-cp /home/oracle/.bash_profile /home/oracle/.bash_profile_backup
-vim /home/oracle/.bash_profile
-#[oracle@myserver~]$ cat $HOME/bin/oracle_env
-
-
-# .bash_profile
-######################################################
-# ---------------------------------------------------#
-# .bash_profile                                      #
-# ---------------------------------------------------#
-# OS User: oracle                                    #
-# Application: Oracle Database Software Owner        #
-# Version: Oracle 11G Release 2                      #
-# ---------------------------------------------------#
-######################################################
-######################################################
-# Get the aliases and functions
-if [ -f ~/.bashrc ]; then
-        . ~/.bashrc
-fi
-#####################################################
-# User specific environment and startup programs
-
-PATH=$PATH:$HOME/bin
-
-export PATH
-#####################################################
-#ALIAS
-alias ls='ls -lha --color=auto'
-alias sql='sqlplus /nolog'
-alias home='cd $ORACLE_HOME'
-#alias db='export ORACLE_SID=oracledb'
-# ------------ SE HABILITAR O USUARIO NAO LOGA VIA TELA DE LOGIN 
-#export DISPLAY=serveroracle:0.0    
-# ------------
-# JAVA_HOME
-export JAVA_HOME=/usr/bin/java
-# ------------
-# TEMP
-export TMP=/tmp
-export TMPDIR=$TMP
-# ------------
-# USER ORACLE
-export ORACLE_OWNER=oracle
-# ------------
-# HOST NAME
-export ORACLE_HOSTNAME=192.168.100.250
-# ------------
-# ORACLE DATABASE E SID
-export ORACLE_UNQNAME=oracledb
-export ORACLE_SID=oracledb
-# ------------
-# ORACLE DIR
-export ORACLE_BASE=/u01/app/oracle
-export ORACLE_HOME=$ORACLE_BASE/product/11.2.0.4/db_1
-export DB_HOME=$ORACLE_BASE/oradata
-# ------------
-# CONFIG TNS
-export TNS_ADMIN=$ORACLE_HOME/network/admin
-# ------------
-# Config  TO_CHAR and TO_DATE functions
-export NLS_DATE_FORMAT="DD-MON-YYYY HH24:MI:SS"
-# ------------
-# TERM environment variable
-export ORACLE_TERM=xterm
-# ------------
-# User specific environment and startup programs
-export BASE_PATH=$PATH
-export PATH=$ORACLE_HOME/bin:$HOME/bin:/usr/sbin:$BASE_PATH
-export LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib
-export CLASSPATH=$ORACLE_HOME/JRE:$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib
-# ------------
-# Umask 
-umask 022
-#------------
-# IF User Oracle
-if [ $USER = "oracle" ]; then
-    if [ $SHELL = "/bin/ksh" ]; then
-        ulimit -p 16384
-        ulimit -n 65536
-    else
-        ulimit -u 16384 -n 65536
-    fi
-fi
-#------------
-#####################################################
-
-------------------------------------------------------------------------------------------------------------------------------------------------
-
-INSTALAR 
-
-## Automatico 
-# Pre Install Oracle SOMENTE NO FINAL ANTE DE RODAR O INSTALADOR ORACLE
-yum install oracle-rdbms-server-11gR2-preinstall
-
-## Update GERAL
-yum update
-reboot
-
-#MONTAR CD E INSTALAR ORACLE
-mount -r /dev/cdrom /media/
-cd /media/
-
-$ cd /home/OraDB11g/database
-$ ./runInstaller
-
-## Executar como root antes de Fechar INSTALADOR
-/u01/app/oraInventory/./orainstRoot.sh
-/u01/app/oracle/product/11.2.0.4/db_1/./root.sh
- 
-#Criar Listner
-netca
-#Criar DB
-dbca
-#Check Listner
-lsnrctl status
-#Check EM
-emctl start agent	
-emctl status dbconsole
-emctl start dbconsole
-emctl stop dbconsole
- 
-
-## OUTROS HABILITAR
-HR
-OE
-PM
-IX
-SH
-BI
-
-HR: Human Resources
-OE: Order Entry
-PM: Product Media
-IX: Information Exchange
-SH: Sales History
-BI: Business Intelligence
-
-Schema HR – Division Human Resources tracks information about the company employees and facilities.
-Schema OE – Division Order Entry tracks product inventories and sales of company products through various channels.
-Schema PM – Division Product Media maintains descriptions and detailed information about each product sold by the company.
-Schema IX – Division Information Exchange manages shipping through B2B applications.
-Schema SH – Division Sales tracks business statistics to facilitate business decisions.
-
-## OUTROS
-/u01/app/oraInventory/logs/installActions2017-04-15_11-58-16AM.log
-
-/u01/app/oracle/admin/oracledb/scripts
-
-/u01/app/oracle/product/11.2.0.4/db_1/192.168.100.250_oracledb/sysman/config/emkey.ora
-
-/u01/app/oracle/product/11.2.0.4/db_1/dbs/spfileoracledb.ora
-
-https://serveroracle.localdomain:1158/em
-
-https://192.168.100.250:1158/em
-------------------------------------------------------------------------------------------------------------------------------------------------
-#Install VMware Tools
-mount -r /dev/dvd /media/
-ls -lha /media/
-tar -zxpf /media/VMwareTools*.tar.gz -C /tmp/
-chmod +x /tmp/vmware-tools-distrib/vmware-install.pl
-/tmp/vmware-tools-distrib/./vmware-install.pl
-rm -rf /tmp/vmware-tools-distrib/
-
-
-#Re-Config 
-/usr/bin/vmware-config-tools.pl
 ------------------------------------------------------------------------------------------------------------------------------------------------
