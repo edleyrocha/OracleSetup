@@ -1,0 +1,152 @@
+------------------------------------------------------------------------------------------------------------------------------------------------
+## --PASSO 1 EDITAR como Usuario root
+## COPIAR PASTA scripts PARA /HOME/oracle/ e rodar via putty
+
+## EDITAR
+vim /etc/oratab
+
+## add Y PARA BANCO DE DADOS START AUTOMATICO
+## Exemplo
+
+## oracledb:/u01/app/oracle/product/11.2.0.4/db_1:N
+PARA
+oracledb:/u01/app/oracle/product/11.2.0.4/db_1:Y
+
+
+## RODAR SCRIPT PARA CRIAR SERVIÇO ORACLE 
+
+
+#Installchmod
+chmod u+x /home/oracle/scripts/setupInstall.sh
+/home/oracle/scripts/./setupInstall.sh
+
+#Remove
+chmod u+x /home/oracle/scripts/setupRemove.sh
+/home/oracle/scripts/./setupRemove.sh
+
+#se nao executar abre o arquivo com vim e digite ENTER apos salvar
+
+:set fileformat=unix
+:wq
+
+OU SEGUIR O PASSO A PASSO ABAIXO
+------------------------------------------------------------------------------------------------------------------------------------------------
+## --PASSO 1 EDITAR como Usuario root
+vim /etc/oratab
+
+## add Y PARA BANCO DE DADOS START AUTOMATICO
+## Exemplo
+
+#oracledb:/u01/app/oracle/product/11.2.0.4/db_1:N
+PARA
+oracledb:/u01/app/oracle/product/11.2.0.4/db_1:Y
+------------------------------------------------------------------------------------------------------------------------------------------------
+## --PASSO 2 EDITAR como Usuario root
+vim /home/oracle/scripts/oracle.sh
+
+##!/bin/bash
+# chkconfig: 345 99 10
+# /etc/init.d/oracle
+# description: Oracle auto start-stop script.
+# processname: oracle
+# Set ORA_OWNER to the user id of the owner of the
+# Oracle database in ORA_HOME.
+ 
+ORA_OWNER=oracle
+RETVAL=0
+case "$1" in
+    'start')
+        # Start the Oracle databases:
+        # The following command assumes that the oracle login
+        # will not prompt the user for any values
+		echo "Starting..."
+		echo ""
+		echo "Starting Oracle Databases: [  ] "
+		echo "########################################################################################################" >> /var/log/oracleService.log
+		date +"! %T %B (%d/%m/%Y) : Starting Oracle Databases [  ]" >> /var/log/oracleService.log
+		echo " " >> /var/log/oracleService.log
+        su - $ORA_OWNER -c "/home/oracle/scripts/ora_start.sh" >> /var/log/oracleService.log
+		echo " " >> /var/log/oracleService.log
+		date +"! %T %B (%d/%m/%Y) : Starting Oracle Databases [OK]" >> /var/log/oracleService.log
+		echo "########################################################################################################" >> /var/log/oracleService.log
+		echo "Starting Oracle Databases: [OK] "
+		echo ""
+		touch /var/lock/subsys/dbora
+        ;;
+    'stop')
+        # Stop the Oracle databases:
+        # The following command assumes that the oracle login
+        # will not prompt the user for any values
+		echo "Stopping..."
+		echo ""
+		echo "Stopping Oracle Databases: [  ] "
+		echo "########################################################################################################" >> /var/log/oracleService.log
+		date +"! %T %B (%d/%m/%Y) : Stopping Oracle Databases [  ]" >> /var/log/oracleService.log
+		echo " " >> /var/log/oracleService.log
+        su - $ORA_OWNER -c "/home/oracle/scripts/ora_stop.sh" >> /var/log/oracleService.log
+		echo " " >> /var/log/oracleService.log
+		date +"! %T %B (%d/%m/%Y) : Stopping Oracle Databases [OK]" >> /var/log/oracleService.log
+		echo "########################################################################################################" >> /var/log/oracleService.log
+		echo "Stopping Oracle Databases: [OK] "
+		echo ""
+		rm -f /var/lock/subsys/dbora
+        ;;
+    'restart')
+        # Stop and Start the Oracle databases:
+        # The following command assumes that the oracle login
+        # will not prompt the user for any values
+        echo ""
+        echo "Restarting Oracle Databases..."
+        /etc/init.d/oracle stop
+        /etc/init.d/oracle start
+        ;;
+    *)
+        echo $"Usage: $0 {start|stop|restart}"
+        RETVAL=1
+esac
+exit $RETVAL
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+## --PASSO 3 EDITAR como Usuario ROOT
+vim /home/oracle/scripts/ora_start.sh
+
+#!/bin/bash
+# script to start the Oracle database, listener and dbconsole
+. ~/.bash_profile
+# start the listener and the database
+$ORACLE_HOME/bin/dbstart $ORACLE_HOME
+# start the Enterprise Manager db console
+$ORACLE_HOME/bin/emctl start dbconsole
+exit 0
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+## --PASSO 4 EDITAR como Usuario ROOT
+vim /home/oracle/scripts/ora_stop.sh
+
+#!/bin/bash
+# script to stop the Oracle database, listener and dbconsole
+. ~/.bash_profile
+# stop the Enterprise Manager db console
+$ORACLE_HOME/bin/emctl stop dbconsole
+# stop the listener and the database
+$ORACLE_HOME/bin/dbshut $ORACLE_HOME
+exit 0
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+## --PASSO 5 EDITAR como Usuario ROOT
+
+touch /var/log/oracleService.log
+chmod 777 /var/log/oracleService.log
+chmod 770 -R /home/oracle/scripts
+chown oracle:root -R /home/oracle/scripts
+chmod u+x -R /home/oracle/scripts/
+systemctl daemon-reload
+systemctl enable oracle.service
+ls /etc/systemd/system/multi-user.target.wants/ -lha
+
+
+#se nao executar abre o arquivo com vim e digite ENTER apos salvar
+
+:set fileformat=unix
+:wq
