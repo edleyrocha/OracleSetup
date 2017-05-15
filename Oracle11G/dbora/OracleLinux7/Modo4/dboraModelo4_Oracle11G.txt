@@ -59,37 +59,35 @@ case "$1" in
         # Start the Oracle databases:
         # The following command assumes that the oracle login
         # will not prompt the user for any values
-		echo "Starting..."
-		echo ""
-		echo "Starting Oracle Databases: [  ] "
-		echo "########################################################################################################" >> /var/log/oracleService.log
-		date +"! %T %B (%d/%m/%Y) : Starting Oracle Databases [  ]" >> /var/log/oracleService.log
-		echo " " >> /var/log/oracleService.log
+        echo ""
+        echo "Starting Oracle Databases: [  ] "
+        echo "--------------------------------------------------------------------------------------------------------" >> /var/log/oracleService.log
+        date +"! %T %B (%d/%m/%Y) : Starting Oracle Databases [  ]" >> /var/log/oracleService.log
+        echo " " >> /var/log/oracleService.log
         su - $ORA_OWNER -c "/home/oracle/scripts/ora_start.sh" >> /var/log/oracleService.log
 		echo " " >> /var/log/oracleService.log
-		date +"! %T %B (%d/%m/%Y) : Starting Oracle Databases [OK]" >> /var/log/oracleService.log
-		echo "########################################################################################################" >> /var/log/oracleService.log
-		echo "Starting Oracle Databases: [OK] "
-		echo ""
-		touch /var/lock/subsys/dbora
+        date +"! %T %B (%d/%m/%Y) : Starting Oracle Databases [OK]" >> /var/log/oracleService.log
+        echo "--------------------------------------------------------------------------------------------------------" >> /var/log/oracleService.log
+        echo "Starting Oracle Databases: [OK] "
+        echo ""
+        touch /var/lock/subsys/oracle
         ;;
     'stop')
         # Stop the Oracle databases:
         # The following command assumes that the oracle login
         # will not prompt the user for any values
-		echo "Stopping..."
-		echo ""
-		echo "Stopping Oracle Databases: [  ] "
-		echo "########################################################################################################" >> /var/log/oracleService.log
-		date +"! %T %B (%d/%m/%Y) : Stopping Oracle Databases [  ]" >> /var/log/oracleService.log
-		echo " " >> /var/log/oracleService.log
+        echo ""
+        echo "Shutting Down Oracle Databases: [  ] "
+        echo "--------------------------------------------------------------------------------------------------------" >> /var/log/oracleService.log
+        date +"! %T %B (%d/%m/%Y) : Shutting Down Oracle Databases [  ]" >> /var/log/oracleService.log
+        echo " " >> /var/log/oracleService.log
         su - $ORA_OWNER -c "/home/oracle/scripts/ora_stop.sh" >> /var/log/oracleService.log
 		echo " " >> /var/log/oracleService.log
-		date +"! %T %B (%d/%m/%Y) : Stopping Oracle Databases [OK]" >> /var/log/oracleService.log
-		echo "########################################################################################################" >> /var/log/oracleService.log
-		echo "Stopping Oracle Databases: [OK] "
-		echo ""
-		rm -f /var/lock/subsys/dbora
+        date +"! %T %B (%d/%m/%Y) : Shutting Down Oracle Databases [OK]" >> /var/log/oracleService.log
+        echo "--------------------------------------------------------------------------------------------------------" >> /var/log/oracleService.log
+        echo "Shutting Down Oracle Databases: [OK] "
+        echo ""
+        rm -f /var/lock/subsys/oracle
         ;;
     'restart')
         # Stop and Start the Oracle databases:
@@ -106,7 +104,6 @@ case "$1" in
 esac
 exit $RETVAL
 
-
 ------------------------------------------------------------------------------------------------------------------------------------------------
 ## --PASSO 3 EDITAR como Usuario ROOT
 vim /home/oracle/scripts/ora_start.sh
@@ -114,10 +111,16 @@ vim /home/oracle/scripts/ora_start.sh
 #!/bin/bash
 # script to start the Oracle database, listener and dbconsole
 . ~/.bash_profile
-# start the listener and the database
-$ORACLE_HOME/bin/dbstart $ORACLE_HOME
+# Start Database
+sqlplus / as sysdba << EOF
+STARTUP;
+EXIT;
+EOF
+# Start Listener
+lsnrctl start
 # start the Enterprise Manager db console
-$ORACLE_HOME/bin/emctl start dbconsole
+emctl start dbconsole
+#
 exit 0
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
@@ -127,23 +130,28 @@ vim /home/oracle/scripts/ora_stop.sh
 #!/bin/bash
 # script to stop the Oracle database, listener and dbconsole
 . ~/.bash_profile
-# stop the listener and the database
-$ORACLE_HOME/bin/dbshut $ORACLE_HOME
 # stop the Enterprise Manager db console
-$ORACLE_HOME/bin/emctl stop dbconsole
+emctl stop dbconsole
+# Stop Listener
+lsnrctl stop
+# Stop Database
+sqlplus / as sysdba << EOF
+SHUTDOWN IMMEDIATE;
+EXIT;
+EOF
+#
 exit 0
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
 ## --PASSO 5 EDITAR como Usuario ROOT
 
-touch /var/log/oracleService.log
-chmod 777 /var/log/oracleService.log
 chmod 770 -R /home/oracle/scripts
 chown oracle:root -R /home/oracle/scripts
-chmod u+x -R /home/oracle/scripts/
-systemctl daemon-reload
-systemctl enable oracle.service
-ls /etc/systemd/system/multi-user.target.wants/ -lha
+ln -s /home/oracle/scripts/oracle.sh /etc/init.d/oracle
+chmod u+x /home/oracle/scripts/ora_start.sh /home/oracle/scripts/ora_stop.sh
+chkconfig --add oracle
+chkconfig --list
+
 
 #se nao executar abre o arquivo com vim e digite ENTER apos salvar
 

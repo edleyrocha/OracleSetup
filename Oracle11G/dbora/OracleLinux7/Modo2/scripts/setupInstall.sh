@@ -21,5 +21,6 @@ chmod u+x -R /home/oracle/scripts/
 systemctl daemon-reload
 systemctl enable oracle.service
 ls /etc/systemd/system/multi-user.target.wants/ -lha
+echo "Oracle.Service [" $(systemctl is-enabled oracle.service) "]"
 #Created symlink from /etc/systemd/system/multi-user.target.wants/oracle.service to /etc/systemd/system/oracle.service.
 exit 0
