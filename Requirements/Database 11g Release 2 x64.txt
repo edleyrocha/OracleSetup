@@ -1,28 +1,46 @@
+E24325-08.PDF
 4.3 Package Requirements
 The following are the list of packages required for Oracle Database 11g Release 2 (11.2):
-
-Note:
-Oracle recommends that you install your Linux operating system with the default software packages (RPMs), unless you specifically intend to perform a minimal installation, and follow the directions for performing such an installation to ensure that you have all required packages for Oracle software.
-
-Oracle recommends that you do not customize RPMs during a default operating system installation. A default installation includes most required packages, and helps you to limit manual checks of package dependencies.
-
-If you did not perform a default Linux installation, you intend to use LDAP, and you want to use the scripts odisrvreg, oidca, or schemasync, then install the Korn shell RPM for your Linux distribution.
-
-You must install the packages (or later versions) listed in the following table. Also, ensure that the list of RPMs and all the prerequisites for these RPMs are installed.
-
-If you are using Oracle Unbreakable Enterprise Kernel, then all required kernel packages are installed as part of the Oracle Unbreakable Enterprise Kernel installation.
-
-For Orace Linux 6 the Oracle Validated RPM has been replaced by the Oracle RDBMS Server 11gR2 Pre-install RPM. See the "Completing a Minimal Linux Installation" section in Oracle Database Installation Guide.
-
-Note:
-Starting with Oracle Database 11g Release 2 (11.2.0.2), all the 32-bit packages, except for gcc-32bit-4.3, listed in the following table are no longer required for installing a database on Linux x86-64. Only the 64-bit packages are required.
-However, for any Oracle Database 11g release before 11.2.0.2, both the 32-bit and 64-bit packages listed in the following table are required.
-
-The following or later version of packages for Oracle Linux 4 and Red Hat Enterprise Linux 4 must be installed:
+■ The following or later version of packages for Oracle Linux 4 and Red Hat
+Enterprise Linux 4 must be installed:
 
 binutils-2.15.92.0.2
 compat-libstdc++-33-3.2.3
 compat-libstdc++-33-3.2.3 (32 bit)
+
+Note:
+■ Oracle recommends that you install your Linux operating system
+with the default software packages (RPMs), unless you
+specifically intend to perform a minimal installation, and follow
+the directions for performing such an installation to ensure that
+you have all required packages for Oracle software.
+■ Oracle recommends that you do not customize RPMs during a
+default operating system installation. A default installation
+includes most required packages, and helps you to limit manual
+checks of package dependencies.
+■ You must install the packages (or later versions) listed in the
+following table. Also, ensure that the list of RPMs and all the
+prerequisites for these RPMs are installed.
+■ If you did not perform a default Linux installation, you intend to
+use LDAP, and you want to use the scripts odisrvreg, oidca, or
+schemasync, then install the Korn shell RPM for your Linux
+distribution.
+■ If you are using Oracle Unbreakable Enterprise Kernel, then all
+required kernel packages are installed as part of the Oracle
+Unbreakable Enterprise Kernel installation.
+■ For Orace Linux 6 the Oracle Validated RPM has been replaced by
+the Oracle RDBMS Server 11gR2 Pre-install RPM. See the
+"Completing a Minimal Linux Installation" section in Oracle
+Database Installation Guide for Linux.
+Note: Starting with Oracle Database 11g Release 2 (11.2.0.2), all 32-bit
+packages, except for gcc-32bit-4.3, listed in this section are no
+longer required for installing a database on Linux x86-64. Only the
+64-bit packages are required. However, for any Oracle Database 11g
+release before 11.2.0.2, both the 32-bit and 64-bit packages listed in this
+section are required.
+However, when you install the 32-bit client binaries on 64-bit ports,
+the installer checks for the existence of 32-bit packages.
+
 elfutils-libelf-0.97
 elfutils-libelf-devel-0.97
 expat-1.95.7
@@ -32,7 +50,6 @@ glibc-2.3.4-2.41
 glibc-2.3.4-2.41 (32 bit)
 glibc-common-2.3.4
 glibc-devel-2.3.4
-glibc-headers-2.3.4
 libaio-0.3.105
 libaio-0.3.105 (32 bit)
 libaio-devel-0.3.105
@@ -43,10 +60,10 @@ libstdc++-3.4.6
 libstdc++-3.4.6 (32 bit)
 libstdc++-devel 3.4.6
 make-3.80
-numactl-0.6.4.x86_64
-pdksh-5.2.14
 sysstat-5.0.5
-The following or later version of packages for Oracle Linux 5, Red Hat Enterprise Linux 5, and Asianux Server 3 must be installed:
+
+■ The following or later version of packages for Oracle Linux 5, Red Hat Enterprise
+Linux 5, and Asianux Server 3 must be installed:
 
 binutils-2.17.50.0.6
 compat-libstdc++-33-3.2.3
@@ -60,8 +77,6 @@ glibc-2.5-24 (32 bit)
 glibc-common-2.5
 glibc-devel-2.5
 glibc-devel-2.5 (32 bit)
-glibc-headers-2.5
-ksh-20060214
 libaio-0.3.106
 libaio-0.3.106 (32 bit)
 libaio-devel-0.3.106
@@ -73,7 +88,9 @@ libstdc++-4.1.2 (32 bit)
 libstdc++-devel-4.1.2
 make-3.81
 sysstat-7.0.2
-The following or later version of packages for Oracle Linux 6, Red Hat Enterprise Linux 6, and Asianux Server 4 must be installed:
+
+■ The following or later version of packages for Oracle Linux 6, Red Hat Enterprise
+Linux 6, and Asianux Server 4 must be installed:
 
 binutils-2.20.51.0.2-5.11.el6 (x86_64)
 compat-libcap1-1.10-1 (x86_64)
@@ -98,36 +115,40 @@ libaio-devel-0.3.107-10.el6 (x86_64)
 libaio-devel-0.3.107-10.el6.i686
 make-3.81-19.el6
 sysstat-9.0.4-11.el6 (x86_64)
-The following or later version of packages for Oracle Linux 7, and Red Hat Enterprise Linux 7 must be installed:
 
-binutils-2.23.52.0.1-12.el7.x86_64 
-compat-libcap1-1.10-3.el7.x86_64 
+■ The following or later version of packages for Oracle Linux 7, and Red Hat
+Enterprise Linux 7 must be installed:
+
+binutils-2.23.52.0.1-12.el7.x86_64
+compat-libcap1-1.10-3.el7.x86_64
 compat-libstdc++-33-3.2.3-71.el7.i686
 compat-libstdc++-33-3.2.3-71.el7.x86_64
-gcc-4.8.2-3.el7.x86_64 
-gcc-c++-4.8.2-3.el7.x86_64 
-glibc-2.17-36.el7.i686 
-glibc-2.17-36.el7.x86_64 
-glibc-devel-2.17-36.el7.i686 
-glibc-devel-2.17-36.el7.x86_64 
+gcc-4.8.2-3.el7.x86_64
+gcc-c++-4.8.2-3.el7.x86_64
+glibc-2.17-36.el7.i686
+glibc-2.17-36.el7.x86_64
+glibc-devel-2.17-36.el7.i686
+glibc-devel-2.17-36.el7.x86_64
 ksh
-libaio-0.3.109-9.el7.i686 
-libaio-0.3.109-9.el7.x86_64 
-libaio-devel-0.3.109-9.el7.i686 
-libaio-devel-0.3.109-9.el7.x86_64 
-libgcc-4.8.2-3.el7.i686 
-libgcc-4.8.2-3.el7.x86_64 
-libstdc++-4.8.2-3.el7.i686 
-libstdc++-4.8.2-3.el7.x86_64 
-libstdc++-devel-4.8.2-3.el7.i686 
-libstdc++-devel-4.8.2-3.el7.x86_64 
-libXi-1.7.2-1.el7.i686 
-libXi-1.7.2-1.el7.x86_64 
-libXtst-1.2.2-1.el7.i686 
-libXtst-1.2.2-1.el7.x86_64 
-make-3.82-19.el7.x86_64 
+libaio-0.3.109-9.el7.i686
+libaio-0.3.109-9.el7.x86_64
+libaio-devel-0.3.109-9.el7.i686
+libaio-devel-0.3.109-9.el7.x86_64
+libgcc-4.8.2-3.el7.i686
+libgcc-4.8.2-3.el7.x86_64
+libstdc++-4.8.2-3.el7.i686
+libstdc++-4.8.2-3.el7.x86_64
+libstdc++-devel-4.8.2-3.el7.i686
+libstdc++-devel-4.8.2-3.el7.x86_64
+libXi-1.7.2-1.el7.i686
+libXi-1.7.2-1.el7.x86_64
+libXtst-1.2.2-1.el7.i686
+libXtst-1.2.2-1.el7.x86_64
+make-3.82-19.el7.x86_64
 sysstat-10.1.5-1.el7.x86_64
-The following or later version of packages for SUSE Linux Enterprise Server 10 must be installed:
+
+■ The following or later version of packages for SUSE Linux Enterprise Server 10
+must be installed:
 
 binutils-2.16.91.0.5
 compat-libstdc++-5.0.7
@@ -136,7 +157,6 @@ gcc-c++-4.1.2
 glibc-2.4-31.63
 glibc-devel-2.4-31.63
 glibc-devel-32bit-2.4-31.63
-ksh-93r-12.9
 libaio-0.3.104
 libaio-32bit-0.3.104
 libaio-devel-0.3.104
@@ -146,19 +166,18 @@ libgcc-4.1.2
 libstdc++-4.1.2
 libstdc++-devel-4.1.2
 make-3.80
-numactl-0.9.6.x86_64
 sysstat-8.0.4
-The following or later version of packages for SUSE Linux Enterprise Server 11 must be installed:
+
+■ The following or later version of packages for SUSE Linux Enterprise Server 11
+must be installed:
 
 binutils-2.19
 gcc-4.3
-gcc-32bit-4.3
 gcc-c++-4.3
 glibc-2.9
 glibc-32bit-2.9
 glibc-devel-2.9
 glibc-devel-32bit-2.9
-ksh-93t
 libaio-0.3.104
 libaio-32bit-0.3.104
 libaio-devel-0.3.104
@@ -173,7 +192,9 @@ libgcc43-4.3.3_20081022
 libstdc++-devel-4.3
 make-3.81
 sysstat-8.1.5
-The following or later version of packages for SUSE Linux Enterprise Server 12: must be installed:
+
+■ The following or later version of packages for SUSE Linux Enterprise Server 12:
+must be installed:
 
 binutils-2.25.0-13.1
 gcc-4.8-6.189
@@ -205,38 +226,71 @@ xorg-x11-7.6_1-14.17.noarch
 xorg-x11-server-extra-7.6_1.15.2-36.21.x86_64
 xorg-x11-libs-7.6-45.14.noarch
 xorg-x11-fonts-7.6-29.45.noarch
-Note:
-You must download and install patch 18370031. For more information about how to download and install this patch, see:
-https://support.oracle.com/
 
-Oracle Database Client Installation Guide for Linux
+■ The following or later version of packages for NeoKylin Linux Advanced Server 6
+must be installed:
 
-The following or later version of packages for NeoKylin Linux Advanced Server 6 must be installed:
-
-binutils-2.20.51.0.2-5.36.el6 (x86_64) 
-compat-libcap1-1.10-1 (x86_64) 
-compat-libstdc++-33-3.2.3-69.el6 (x86_64) 
-compat-libstdc++-33-3.2.3-69.el6 (i686) 
-gcc-4.4.7-4.el6 (x86_64) 
-gcc-c++-4.4.7-4.el6 (x86_64) 
-glibc-2.12-1.132.el6 (i686) 
-glibc-2.12-1.132.el6 (x86_64) 
-glibc-devel-2.12-1.132.el6 (x86_64) 
-glibc-devel-2.12-1.132.el6 (i686) 
-ksh 
-libgcc-4.4.7-4.el6 (i686) 
-libgcc-4.4.7-4.el6 (x86_64) 
-libstdc++-4.4.7-4.el6 (x86_64) 
-libstdc++-4.4.7-4.el6 (i686) 
-libstdc++-devel-4.4.7-4.el6 (x86_64) 
-libstdc++-devel-4.4.7-4.el6 (i686) 
-libaio-0.3.107-10.el6 (x86_64) 
-libaio-0.3.107-10.el6 (i686) 
-libaio-devel-0.3.107-10.el6 (x86_64) 
-libaio-devel-0.3.107-10.el6 (i686) 
+binutils-2.20.51.0.2-5.36.el6 (x86_64)
+compat-libcap1-1.10-1 (x86_64)
+compat-libstdc++-33-3.2.3-69.el6 (x86_64)
+compat-libstdc++-33-3.2.3-69.el6 (i686)
+gcc-4.4.7-4.el6 (x86_64)
+gcc-c++-4.4.7-4.el6 (x86_64)
+glibc-2.12-1.132.el6 (i686)
+glibc-2.12-1.132.el6 (x86_64)
+glibc-devel-2.12-1.132.el6 (x86_64)
+glibc-devel-2.12-1.132.el6 (i686)
+ksh
+libgcc-4.4.7-4.el6 (i686)
+libgcc-4.4.7-4.el6 (x86_64)
+libstdc++-4.4.7-4.el6 (x86_64)
+libstdc++-4.4.7-4.el6 (i686)
+libstdc++-devel-4.4.7-4.el6 (x86_64)
+libstdc++-devel-4.4.7-4.el6 (i686)
+libaio-0.3.107-10.el6 (x86_64)
+libaio-0.3.107-10.el6 (i686)
+libaio-devel-0.3.107-10.el6 (x86_64)
+libaio-devel-0.3.107-10.el6 (i686)
 make-3.81-20.el6
 sysstat-9.0.4-22.el6 (x86_64)
-To determine whether the required packages are installed, enter commands similar to the following:
 
+■ The following or later version of packages for NeoKylin Linux Advanced Server 7
+must be installed:
+
+binutils-2.23.52.0.1-55.el7.x86_64
+compat-libcap1-1.10-7.el7.x86_64
+gcc-4.8.5-4.el7.ns7.01.x86_64
+gcc-c++-4.8.5-4.el7.ns7.01.x86_64
+glibc-2.17-105.el7.ns7.01.i686
+glibc-2.17-105.el7.ns7.01.x86_64
+glibc-devel-2.17-105.el7.ns7.01.i686
+glibc-devel-2.17-105.el7.ns7.01.x86_64
+ksh-20120801-22.el7_1.2.x86_64
+libaio-0.3.109-13.el7.i686
+libaio-0.3.109-13.el7.x86_64
+libaio-devel-0.3.109-13.el7.i686
+libaio-devel-0.3.109-13.el7.x86_64
+libgcc-4.8.5-4.el7.ns7.01.i686
+
+Note: You must download and install patch 18370031. For more
+information about how to download and install this patch, see:
+https://support.oracle.com/
+Oracle Database Client Installation Guide for Linux
+
+libgcc-4.8.5-4.el7.ns7.01.x86_64
+libstdc++-4.8.5-4.el7.ns7.01.i686
+libstdc++-4.8.5-4.el7.ns7.01.x86_64
+libstdc++-devel-4.8.5-4.el7.ns7.01.i686
+libstdc++-devel-4.8.5-4.el7.ns7.01.x86_64
+libXi-1.7.4-2.el7.i686
+libXi-1.7.4-2.el7.x86_64
+libXtst-1.2.2-2.1.el7.i686
+libXtst-1.2.2-2.1.el7.x86_64
+make-3.82-21.el7.x86_64
+sysstat-10.1.5-7.el7.x86_64
+
+To determine whether the required packages are installed, enter commands similar to
+the following:
 # rpm -q package_name
-If a package is not installed, then install it from the Linux distribution media or download the required package version from the Linux vendor's website.
+If a package is not installed, then install it from the Linux distribution media or
+download the required package version from the Linux vendor’s website.
