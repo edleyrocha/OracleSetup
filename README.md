@@ -1,7 +1,6 @@
 -----------
-#Setup Oracle Database
 
-[Oracle_Database](https://i.imgur.com/32tqRu2.png)
+![Oracle_Database](https://i.imgur.com/32tqRu2.png)
 
 ## Oracle Setup for Database 
 
