@@ -1,0 +1,100 @@
+------------------------------------------------
+
+# BAIXAR PACOTES PARA INSTALADOR OFFLINE (CASO NAO TENHA OFFLINE)
+
+# LIMPAR E CHECAR PACOTES
+yum clean all
+yum clean packages
+yum clean headers
+yum clean metadata
+yum repolist
+yum check-update
+
+# CRIAR PASTAS
+mkdir /home/1Updates
+mkdir /home/2Requirements
+mkdir /home/3Xorg-X11
+mkdir /home/4PreInstall
+mkdir /home/5ASMLib
+
+# BAIXAR PACOTES UPDATE, INSTALAR PACOTES UPDATE, ATUALIZAR YUM, CHECAR UPDATE E REINICIAR COM NOVOS PACOTES
+yum update --downloadonly --downloaddir=/home/1Updates
+yum localinstall /home/1Updates/*.rpm
+/usr/bin/ol_yum_configure.sh
+yum update
+reboot
+
+# BAIXAR PACOTES REQUERIDOS ORACLE, INSTALAR PACOTES REQUERIDOS, CHECAR UPDATE E REINICIAR COM NOVOS PACOTES
+yum install --downloadonly --downloaddir=/home/2Requirements binutils-2.*x86_64* compat-libcap1-1*x86_64* compat-libstdc++-33-3*x86_64* compat-libstdc++-33-3*i686* gcc-4*x86_64* gcc-c++-4*x86_64* glibc-2*i686* glibc-2*x86_64* glibc-devel-2*i686* glibc-devel-2*x86_64* ksh-2*x86_64* libgcc-4*i686* libgcc-4*x86_64* libstdc++-4*i686* libstdc++-4*x86_64* libstdc++-devel-4*i686* libstdc++-devel-4*x86_64* libaio-0*i686* libaio-0*x86_64* libaio-devel-0*i686* libaio-devel-0*x86_64* make-3*x86_64* sysstat-9*x86_64*
+yum localinstall /home/2Requirements/*.rpm
+yum update
+reboot
+
+# BAIXAR PACOTES X11, INSTALAR PACOTES X11, CHECAR UPDATE E REINICIAR COM NOVOS PACOTES
+yum install --downloadonly --downloaddir=/home/3Xorg-X11 xorg-x11-apps-7*x86_64* xorg-x11-xauth-1*x86_64* xorg-x11-utils-7*x86_64* xorg-x11-font*  
+yum localinstall /home/3Xorg-X11/*.rpm
+yum update
+reboot
+
+# BAIXAR PACOTES PREINSTALL ORACLE, INSTALAR PACOTES PREINSTALL ORACLE, ATUALIZAR YUM, CHECAR UPDATE E REINICIAR COM NOVOS PACOTES
+yum install --downloadonly --downloaddir=/home/4PreInstall oracle-rdbms-server-11gR2-preinstall*x86_64* 
+yum localinstall /home/4PreInstall/*.rpm
+oracle-rdbms-server-11gR2-preinstall-verify
+yum update
+reboot
+
+# BAIXAR PACOTES ASM ORACLE, INSTALAR PACOTES ASM ORACLE, ATUALIZAR YUM, CHECAR UPDATE E REINICIAR COM NOVOS PACOTES
+yum install --downloadonly --downloaddir=/home/5ASMLib oracleasm-support*x86_64* oracleasmlib
+yum localinstall /home/5ASMLib/*.rpm
+yum update
+reboot
+------------------------------------------------
+
+# INSTALAR OFFLINE VIA ISO (CASO NAO TENHA INTERNET)
+
+# LIMPAR E CHECAR PACOTES
+yum clean all
+yum clean packages
+yum clean headers
+yum clean metadata
+yum repolist
+yum check-update
+
+
+# MONTAR DVD 
+mount -r /dev/cdrom /media/
+cd /media/Packages/
+
+# DESMONTAR DVD
+umount -f /dev/cdrom
+
+# EJECT DVD
+eject 
+
+
+# PACOTES DEPENDENCIAS PARA -> PACKAGE REQUIREMENTS
+yum localinstall cloog-ppl-0*x86_64* cpp-4*x86_64* glibc-headers*x86_64*  libgomp*x86_64* mpfr-2*x86_64* ppl-0*x86_64*
+
+# PACOTES REQUERIDOS ORACLE
+yum localinstall binutils-2.*x86_64* compat-libcap1-1*x86_64* compat-libstdc++-33-3*x86_64* compat-libstdc++-33-3*i686* gcc-4*x86_64* gcc-c++-4*x86_64* glibc-2*i686* glibc-2*x86_64* glibc-devel-2*i686* glibc-devel-2*x86_64* ksh-2*x86_64* libgcc-4*i686* libgcc-4*x86_64* libstdc++-4*i686* libstdc++-4*x86_64* libstdc++-devel-4*i686* libstdc++-devel-4*x86_64* libaio-0*i686* libaio-0*x86_64* libaio-devel-0*i686* libaio-devel-0*x86_64* make-3*x86_64* sysstat-9*x86_64*
+
+EXTRA PARA X11-XAUTH E APPS (xclock xeyes) REVISAR
+yum localinstall xorg-x11-apps-7*x86_64* xorg-x11-xauth-1*x86_64* xorg-x11-utils-7*x86_64* xorg-x11-font* fontconfig-2*x86_64* freetype-2*x86_64* libICE-1*x86_64* libSM-1*x86_64* libXaw-1*x86_64* libXcursor-1*x86_64* libXext-1*x86_64* libXfixes-5*x86_64* libXfont-1*x86_64* libXft-2*x86_64* libXi-1*x86_64* libXinerama-1*x86_64* libXmu-1*x86_64* libXpm-3*x86_64* libXrandr-1*x86_64* libXrender-0*x86_64* libXt-1*x86_64* libXtst-1*x86_64* libXv-1*x86_64* libXxf86dga-1*x86_64* libXxf86misc-1*x86_64* libXxf86vm-1*x86_64* libdmx-1*x86_64* libfontenc-1*x86_64* libxkbfile-1*x86_64* ttmkfdir-3*x86_64*
+
+## PRE INSTALL ORACLE SOMENTE NO FINAL ANTE DE RODAR O INSTALADOR ORACLE(COPIAR PACOTE PARA SERVER) - NAO TEM NO CD
+yum localinstall /home/4PreInstall/*.rpm
+oracle-rdbms-server-11gR2-preinstall-verify
+
+# INSTALAR PACOTES ASM ORACLE, ATUALIZAR YUM, CHECAR UPDATE E REINICIAR COM NOVOS PACOTES - NAO TEM NO CD
+yum localinstall /home/5ASMLib/*.rpm
+
+# BAIXAR UPDATES APOS INSTALAR PACOTES VIA ISO e ATUALIZAR
+mkdir /home/6UpdatesOfflineParaISO
+yum update --downloadonly --downloaddir=/home/6UpdatesOfflineParaISO
+yum localinstall /home/6UpdatesOfflineParaISO/*.rpm
+/usr/bin/ol_yum_configure.sh
+yum update
+reboot
+
+
+------------------------------------------------

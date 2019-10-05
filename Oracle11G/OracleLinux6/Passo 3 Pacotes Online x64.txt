@@ -1,0 +1,39 @@
+------------------------------------------------
+
+# BAIXAR PACOTES PARA INSTALADOR ONLINE (CASO NAO TENHA OFFLINE)
+
+# LIMPAR E CHECAR PACOTES
+yum clean all
+yum clean packages
+yum clean headers
+yum clean metadata
+yum repolist
+yum check-update
+
+# BAIXAR PACOTES UPDATE, INSTALAR PACOTES UPDATE, ATUALIZAR YUM, CHECAR UPDATE E REINICIAR COM NOVOS PACOTES
+yum update
+/usr/bin/ol_yum_configure.sh
+yum update
+reboot
+
+# BAIXAR PACOTES REQUERIDOS ORACLE, INSTALAR PACOTES REQUERIDOS, CHECAR UPDATE E REINICIAR COM NOVOS PACOTES
+yum install binutils-2.*x86_64* compat-libcap1-1*x86_64* compat-libstdc++-33-3*x86_64* compat-libstdc++-33-3*i686* gcc-4*x86_64* gcc-c++-4*x86_64* glibc-2*i686* glibc-2*x86_64* glibc-devel-2*i686* glibc-devel-2*x86_64* ksh-2*x86_64* libgcc-4*i686* libgcc-4*x86_64* libstdc++-4*i686* libstdc++-4*x86_64* libstdc++-devel-4*i686* libstdc++-devel-4*x86_64* libaio-0*i686* libaio-0*x86_64* libaio-devel-0*i686* libaio-devel-0*x86_64* make-3*x86_64* sysstat-9*x86_64*
+yum update
+reboot
+
+# BAIXAR PACOTES X11, INSTALAR PACOTES X11, CHECAR UPDATE E REINICIAR COM NOVOS PACOTES
+yum install xorg-x11-apps-7*x86_64* xorg-x11-xauth-1*x86_64* xorg-x11-utils-7*x86_64* xorg-x11-font*
+yum update
+reboot
+
+# BAIXAR PACOTES PREINSTALL ORACLE, INSTALAR PACOTES PREINSTALL ORACLE, ATUALIZAR YUM, CHECAR UPDATE E REINICIAR COM NOVOS PACOTES
+yum install oracle-rdbms-server-11gR2-preinstall*x86_64* 
+oracle-rdbms-server-11gR2-preinstall-verify
+yum update
+reboot
+
+# BAIXAR PACOTES ASM ORACLE, INSTALAR PACOTES ASM ORACLE, ATUALIZAR YUM, CHECAR UPDATE E REINICIAR COM NOVOS PACOTES
+yum install oracleasm-support*x86_64*
+yum update
+reboot
+------------------------------------------------

@@ -1,0 +1,265 @@
+------------------------------------------------
+
+# DEFINIR ALIAS PARA TODOS
+
+vim /etc/bashrc
+
+####################################################
+#ALIAS by ROOT
+alias del='rm -rf'
+alias ls='ls -lha --color=auto'
+alias sql='sqlplus /nolog'
+alias home='cd $ORACLE_HOME'
+alias desligar='shutdown -h now'
+alias reiniciar='reboot'
+alias c='clear'
+alias cls='clear'
+alias grep='grep --color=auto'
+alias mkdir='mkdir -v -p'
+alias h='history'
+alias hora='date +"%T"'
+alias dia='date +"%d/%m/%Y"'
+alias data='date +"%d/%m/%Y - %T"'
+alias ping='ping -c 5'
+alias portas='netstat -tulanp'
+alias montarcd='mount -r /dev/cdrom /media/'
+alias desmontarcd='umount -f /dev/cdrom'
+#####################################################
+
+# SET RESOURCE LIMITS FOR USER grid
+
+vim /etc/security/limits.conf
+
+####################################################
+# SET RESOURCE LIMITS FOR USER grid ASM by ROOT
+
+oracle   soft   nofile    1024
+oracle   hard   nofile    65536
+oracle   soft   nproc    16384
+oracle   hard   nproc    16384
+oracle   soft   stack    10240
+oracle   hard   stack    32768
+oracle   hard   memlock    3736029
+oracle   soft   memlock    3736029
+
+grid soft nproc 2047
+grid hard nproc 16384
+grid soft nofile 1024
+grid hard nofile 65536
+
+####################################################
+
+
+# FAÇA AS SEGUINTES ALTERAÇÕES NO ARQUIVO DE INICIALIZAÇÃO DO SHELL
+
+vim /etc/csh.login
+
+#################################################### 
+if ( \$USER == "oracle" || \$USER == "grid" )
+ then
+ limit maxproc 16384
+ limit descriptors 65536
+endif
+####################################################
+
+# SET REQUIRED PAM
+
+vim /etc/pam.d/login
+
+####################################################
+# SET RESOURCE LIMITS FOR USER 0RACLE DB ASM by ROOT
+# from /etc/security/limits.conf
+session required pam_limits.so  
+####################################################
+
+
+------------------------------------------------
+# EDITAR 
+
+vim /etc/ssh/sshd_config
+
+
+X11Forwarding yes
+X11DisplayOffset 10
+#habilitar para abrir setup oracle
+X11UseLocalhost yes
+
+#Restart SSHD
+/etc/init.d/sshd restart
+------------------------------------------------
+
+# VERIFICIAR NOME REDE CAT /ETC/SYSCONFIG/NETWORK  EDITAR HOST
+
+vim /etc/hosts  
+
+192.168.100.250	oraclevm oraclevm.localdomain
+127.0.0.1       localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1             localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+------------------------------------------------
+## Desativar Iptables
+
+service iptables stop
+chkconfig iptables off
+service iptables status
+
+
+service ip6tables stop
+chkconfig ip6tables off
+service ip6tables status
+
+chkconfig --list
+------------------------------------------------
+## EDIT VIA VIM (" /etc/selinux/config ") ADD
+
+#Editar vim /etc/selinux/config
+vim /etc/selinux/config
+SELINUX=disabled
+
+# SET PERMISAO, Report Status
+setenforce Permissive
+sestatus -v
+getenforce
+
+## Reboot
+sudo init 6
+------------------------------------------------
+# DIRETORIO PARA INSTALAR ORACLE PADRAO --> OFA (Optimal Flexible Architecture)
+
+# STANDALONE
+mkdir -p /u01/app/oracle/product/11.2.0/db_1
+chown -R oracle:oinstall /u01
+chmod -R 775 /u01
+
+
+------------------------------------------------
+# FAZER BACKUP DO PROFILE ATUAL
+mv /home/oracle/.bash_profile /home/oracle/.bash_profile_backup_ORIGINAL
+chown oracle:oinstall /home/oracle/.bash_profile_backup_ORIGINAL
+
+# CRIAR ARQUIVO E RODAR CHOWN
+vim /home/oracle/.bash_profile
+chown oracle:oinstall /home/oracle/.bash_profile
+
+# COPIAR E COLAR EM /home/oracle/.bash_profile
+
+
+
+
+# .bash_profile /home/oracle/.bash_profile
+######################################################
+#----------------------------------------------------#
+# .bash_profile                                      #
+#----------------------------------------------------#
+# OS User: oracle                                    #
+# Application: Oracle Database Software Owner        #
+# Version: Oracle 11G Release 2                      #
+#----------------------------------------------------#
+######################################################
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+#####################################################
+# User specific environment and startup programs
+PATH=$PATH:$HOME/bin;
+export PATH;
+#####################################################
+#---------------------------------------------------#
+# X11-XAUTH REMOVE MSG -> Warning: Missing charsets in String to FontSet conversion 
+export LC_ALL=C;
+#---------------------------------------------------# 
+# SE HABILITAR O USUARIO NAO LOGA VIA TELA DE LOGIN 
+#export DISPLAY=serveroracle:0.0;    
+#---------------------------------------------------#
+# JAVA_HOME
+export JAVA_HOME=/usr/bin/java;
+#---------------------------------------------------#
+# TEMP
+export TMP=/tmp;
+export TEMP=$TMP;
+export TMPDIR=$TMP;
+#---------------------------------------------------#
+# USER ORACLE
+export ORACLE_OWNER=oracle;
+#---------------------------------------------------#
+# HOST NAME
+export ORACLE_HOSTNAME=192.168.100.250;
+#---------------------------------------------------#
+# ORACLE DATABASE E SID
+export ORACLE_UNQNAME=oracledb;
+export ORACLE_SID=oracledb;
+#---------------------------------------------------#
+# ORACLE DIR
+export ORACLE_BASE=/u01/app/oracle;
+export ORACLE_HOME=$ORACLE_BASE/product/11.2.0/db_1;
+export DB_HOME=$ORACLE_BASE/oradata;
+#---------------------------------------------------#
+# CONFIG TNS
+export TNS_ADMIN=$ORACLE_HOME/network/admin;
+#---------------------------------------------------#
+# Config  TO_CHAR and TO_DATE functions
+export NLS_DATE_FORMAT="DD-MON-YYYY HH24:MI:SS";
+#---------------------------------------------------#
+# TERM environment variable
+export ORACLE_TERM=xterm;
+#---------------------------------------------------#
+# User specific environment and startup programs
+export BASE_PATH=$PATH;
+export PATH=$ORACLE_HOME/bin:$HOME/bin:/usr/sbin:$BASE_PATH;
+export LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib;
+export CLASSPATH=$ORACLE_HOME/JRE:$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib;
+#---------------------------------------------------#
+# Umask 
+umask 022;
+#------------
+# IF User Oracle
+if [ $USER = "oracle" ]; then
+    if [ $SHELL = "/bin/ksh" ]; then
+        ulimit -p 16384
+        ulimit -n 65536
+    else
+        ulimit -u 16384 -n 65536
+    fi
+fi
+#####################################################
+#ALIAS by ROOT
+alias dba='sqlplus / as sysdba'
+#####################################################
+
+
+
+# RODAR CHOWN
+chown oracle:oinstall /home/oracle/.bash_profile
+
+------------------------------------------------
+# MONTAR CD E INSTALAR ORACLE
+mount -r /dev/cdrom /media/
+
+
+# INSTALADOR ORACLE
+$./runInstaller
+./runInstaller && clear
+
+
+# EXECUTAR COMO ROOT ANTES DE FECHAR INSTALADOR
+/u01/app/oraInventory/./orainstRoot.sh
+/u01/app/oracle/product/11.2.0.4/db_1/./root.sh
+------------------------------------------------
+# Conectar direto do ProntPara Banco como SYSADMIN
+sqlplus / as sysdba
+sqlplus "sys as sysdba"
+
+
+# SQLPlus Conectar como sysadmin
+connect / as sysdba;
+
+# SQLPlus Conectar como system
+connect system/oracle;
+------------------------------------------------
+# Acesso Remoto
+https://192.168.100.250:1158/em
+------------------------------------------------
+
+
+

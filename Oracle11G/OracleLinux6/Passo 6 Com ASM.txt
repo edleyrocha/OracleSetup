@@ -1,0 +1,496 @@
+------------------------------------------------
+
+# DEFINIR ALIAS PARA TODOS
+
+vim /etc/bashrc
+
+####################################################
+#ALIAS by ROOT
+alias del='rm -rf'
+alias ls='ls -lha --color=auto'
+alias sql='sqlplus /nolog'
+alias home='cd $ORACLE_HOME'
+alias desligar='shutdown -h now'
+alias reiniciar='reboot'
+alias c='clear'
+alias cls='clear'
+alias grep='grep --color=auto'
+alias mkdir='mkdir -v -p'
+alias h='history'
+alias hora='date +"%T"'
+alias dia='date +"%d/%m/%Y"'
+alias data='date +"%d/%m/%Y - %T"'
+alias ping='ping -c 5'
+alias portas='netstat -tulanp'
+alias montarcd='mount -r /dev/cdrom /media/'
+alias desmontarcd='umount -f /dev/cdrom'
+#####################################################
+
+
+
+# SET RESOURCE LIMITS FOR USER grid
+
+vim /etc/security/limits.conf
+
+####################################################
+# SET RESOURCE LIMITS FOR USER grid ASM by ROOT
+
+oracle   soft   nofile    1024
+oracle   hard   nofile    65536
+oracle   soft   nproc    16384
+oracle   hard   nproc    16384
+oracle   soft   stack    10240
+oracle   hard   stack    32768
+oracle   hard   memlock    3736029
+oracle   soft   memlock    3736029
+
+grid soft nproc 2047
+grid hard nproc 16384
+grid soft nofile 1024
+grid hard nofile 65536
+
+####################################################
+
+
+
+# FAÇA AS SEGUINTES ALTERAÇÕES NO ARQUIVO DE INICIALIZAÇÃO DO SHELL
+
+vim /etc/csh.login
+
+#################################################### 
+if ( \$USER == "oracle" || \$USER == "grid" )
+ then
+ limit maxproc 16384
+ limit descriptors 65536
+endif
+####################################################
+ 
+
+
+
+# SET REQUIRED PAM
+
+
+vim /etc/pam.d/login
+
+####################################################
+# SET RESOURCE LIMITS FOR USER 0RACLE DB ASM by ROOT
+# from /etc/security/limits.conf
+session required pam_limits.so  
+####################################################
+ 
+
+
+------------------------------------------------
+# EDITAR 
+
+vim /etc/ssh/sshd_config
+
+
+X11Forwarding yes
+X11DisplayOffset 10
+#habilitar para abrir setup oracle
+X11UseLocalhost yes
+
+#Restart SSHD
+/etc/init.d/sshd restart
+------------------------------------------------
+# VERIFICIAR NOME REDE CAT /ETC/SYSCONFIG/NETWORK  EDITAR HOST
+
+vim /etc/hosts  
+
+192.168.100.250	oraclevm oraclevm.localdomain
+127.0.0.1       localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1             localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+------------------------------------------------
+## Desativar Iptables
+
+service iptables stop
+chkconfig iptables off
+service iptables status
+
+
+service ip6tables stop
+chkconfig ip6tables off
+service ip6tables status
+
+chkconfig --list
+------------------------------------------------
+
+## EDIT VIA VIM (" /etc/selinux/config ") ADD
+
+#Editar vim /etc/selinux/config
+
+vim /etc/selinux/config
+
+SELINUX=disabled
+
+# SET PERMISAO, Report Status
+setenforce Permissive
+sestatus -v
+getenforce
+
+## Reboot
+sudo init 6
+------------------------------------------------
+# DIRETORIO PARA INSTALAR ORACLE PADRAO --> OFA (Optimal Flexible Architecture)
+
+# STANDALONE
+mkdir -p /u01/app/oracle/product/11.2.0/db_1
+mkdir -p /u01/app/grid/product/11.2.0/grid
+chown -R oracle:oinstall /u01
+chown -R grid:oinstall /u01/app/grid/
+chmod -R 775 /u01
+
+#RAC
+mkdir -p /u01/app/oracle/product/11.2.0/db_1
+mkdir -p /u01/app/grid
+mkdir -p /u01/app/11.2.0/grid
+chown -R oracle:oinstall /u01
+chown -R grid:oinstall /u01/app/grid
+chown -R grid:oinstall /u01/app/11.2.0/grid
+chmod -R 775 /u01
+
+-----------------------------------------------
+
+# CONFIGURE ASM ON BOOT
+
+# Carregar ORACLE ASM
+oracleasm init
+
+# Checar ASM
+oracleasm status
+
+# CONFIGURAR ASM --> oracleasm configure -i
+echo -e "grid\nasmadmin\ny\ny\n" | oracleasm configure -i
+
+ou MANUALMENTE  --> vim /etc/sysconfig/oracleasm
+
+ORACLEASM_ENABLED=true
+ORACLEASM_UID=grid
+ORACLEASM_GID=asmadmin
+ORACLEASM_SCANBOOT=true
+ORACLEASM_SCANORDER=""
+ORACLEASM_SCANEXCLUDE=""
+ORACLEASM_SCAN_DIRECTORIES=""
+ORACLEASM_USE_LOGICAL_BLOCK_SIZE=false
+
+
+------------------------------------------------
+
+# Criar PARTIÇOES para ASM para UNICO DISCO (NAO RECOMENTADO)
+#LISTAR PARTIÇOES DOS HDS
+cat /proc/partitions
+fdisk -l | grep "/dev/s"
+
+#Exempo 1 com HD 50G
+# CRS  =  5G
+# DATA =  22,50G
+# FRA  =  22,50G
+
+# Listar PARTIÇOES
+echo -e "p\nq" | fdisk /dev/sdb -c -u
+
+# Criar PARTIÇOES para ASM
+echo -e "n\np\n1\n\n+5000MB\nw" | fdisk /dev/sdb -c -u
+echo -e "n\np\n2\n\n+22500MB\nw" | fdisk /dev/sdb -c -u
+echo -e "n\np\n3\n\n+22500MB\nw" | fdisk /dev/sdb -c -u
+
+chown grid:asmadmin /dev/sdb1 | chmod 660 /dev/sdb1
+chown grid:asmadmin /dev/sdb2 | chmod 660 /dev/sdb2
+chown grid:asmadmin /dev/sdb3 | chmod 660 /dev/sdb3
+
+# Criar PARTIÇOES para ASM para UNICO DISCO (NAO RECOMENTADO)
+#LISTAR PARTIÇOES DOS HDS
+cat /proc/partitions
+fdisk -l | grep "/dev/s"
+
+#Exempo 1 com HD 200G
+# CRS  =  10G 2x5G
+# DATA =  95G 2x47,5G
+# FRA  =  95G 2x47,5G
+
+# Listar PARTIÇOES
+echo -e "p\nq" | fdisk /dev/sdb -c -u
+
+# Criar PARTIÇOES para ASM RODAR UM A UM PARA NAO DAR ERRO DE IO
+echo -e "n\np\n1\n\n+5000MB\nw" | fdisk /dev/sdb -c -u
+echo -e "n\np\n2\n\n+47500MB\nw" | fdisk /dev/sdb -c -u
+echo -e "n\np\n3\n\n+47500MB\nw" | fdisk /dev/sdb -c -u
+echo -e "n\ne\n\n\nw" | fdisk /dev/sdb -c -u
+echo -e "n\n\n+5000MB\nw" | fdisk /dev/sdb -c -u
+echo -e "n\n\n+47500MB\nw" | fdisk /dev/sdb -c -u
+echo -e "n\n\n+47500MB\nw" | fdisk /dev/sdb -c -u
+
+
+chown grid:asmadmin /dev/sdb1 | chmod 660 /dev/sdb1
+chown grid:asmadmin /dev/sdb2 | chmod 660 /dev/sdb2
+chown grid:asmadmin /dev/sdb3 | chmod 660 /dev/sdb3
+chown grid:asmadmin /dev/sdb1 | chmod 660 /dev/sdb4
+chown grid:asmadmin /dev/sdb2 | chmod 660 /dev/sdb5
+chown grid:asmadmin /dev/sdb3 | chmod 660 /dev/sdb6
+chown grid:asmadmin /dev/sdb3 | chmod 660 /dev/sdb7
+
+
+#Exempo 3 com HD 500G
+# CRS  =  95G
+# DATA =  95G
+# FRA  =  95G
+# ARCH  =  95G
+# REDO  =  95G
+
+
+# Listar PARTIÇOES
+echo -e "p\nq" | fdisk /dev/sdb -c -u
+
+# Criar PARTIÇOES para ASM RODAR UM A UM PARA NAO DAR ERRO DE IO
+echo -e "n\ne\n1\n\n\nw" | fdisk /dev/sdb -c -u
+echo -e "n\nl\n\n+95G\nw" | fdisk /dev/sdb -c -u
+echo -e "n\nl\n\n+95G\nw" | fdisk /dev/sdb -c -u
+echo -e "n\nl\n\n+95G\nw" | fdisk /dev/sdb -c -u
+echo -e "n\nl\n\n+95G\nw" | fdisk /dev/sdb -c -u
+echo -e "n\nl\n\n+95G\nw" | fdisk /dev/sdb -c -u
+
+------------------------------------------------
+# Criar PARTIÇOES para ASM para VARIOS DISCO (NAO RECOMENTADO) Exempo 1 com HD 50G
+oracleasm createdisk CRSVOL1 /dev/sdb1
+oracleasm createdisk DATAVOL1 /dev/sdb2
+oracleasm createdisk FRAVOL1 /dev/sdb3
+
+
+# Criar PARTIÇOES para ASM para UNICO DISCO (NAO RECOMENTADO) Exempo 2 com HD200G
+#1- Criar Disco ASM
+oracleasm createdisk CRSVOL1 /dev/sdb1
+oracleasm createdisk CRSVOL2 /dev/sdb5
+oracleasm createdisk DATAVOL1 /dev/sdb2
+oracleasm createdisk DATAVOL2 /dev/sdb6
+oracleasm createdisk FRAVOL1 /dev/sdb3
+oracleasm createdisk FRAVOL2 /dev/sdb7
+
+# Criar PARTIÇOES para ASM para UNICO DISCO (NAO RECOMENTADO) Exempo 3 com HD500G
+#1- Criar Disco ASM
+oracleasm createdisk CRSVOL1 /dev/sdb5
+oracleasm createdisk DATAVOL1 /dev/sdb6
+oracleasm createdisk FRAVOL1 /dev/sdb7
+oracleasm createdisk ARCHVOL1 /dev/sdb8
+oracleasm createdisk REDOVOL1 /dev/sdb9
+ 
+
+
+
+------------------------------------------------
+
+#[grid@myserver~]$ cat $HOME/bin/oracle_env
+
+## Fazer Backup do Profile Atual
+cp /home/grid/.bash_profile /home/grid/.bash_profile_backup_ORIGINAL
+chown grid:oinstall /home/grid/.bash_profile_backup_ORIGINAL
+
+## Criar Arquivo e no final rodar chown
+vim /home/grid/.bash_profile
+chown grid:oinstall /home/grid/.bash_profile
+
+
+
+
+# .bash_profile
+######################################################
+# -------------------------------------------------- #
+# .bash_profile                                      #
+# -------------------------------------------------- #
+# OS User: grid                                      #
+# Application: Oracle Database Software Owner        #
+# Version: Oracle 11G Release 2                      #
+# ---------------------------------------------------#
+######################################################
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+#####################################################
+# User specific environment and startup programs    #
+PATH=$PATH:$HOME/bin;
+export PATH;
+#####################################################
+#---------------------------------------------------#
+# X11-XAUTH REMOVE MSG -> Warning: Missing charsets in String to FontSet conversion 
+export LC_ALL=C;
+#---------------------------------------------------#
+# SE HABILITAR O USUARIO NAO LOGA VIA TELA DE LOGIN 
+#export DISPLAY=oraclevm:0.0;    
+#---------------------------------------------------#
+# JAVA_HOME
+export JAVA_HOME=/usr/bin/java;
+#---------------------------------------------------#
+# TEMP
+export TMP=/tmp;
+export TEMP=$TMP;
+export TMPDIR=$TMP;
+#---------------------------------------------------#
+# USER ORACLE
+export ORACLE_OWNER=grid;
+#---------------------------------------------------#
+# HOST NAME
+export ORACLE_HOSTNAME=192.168.100.250;
+#---------------------------------------------------#
+# ORACLE SID
+export ORACLE_SID=+ASM;
+#---------------------------------------------------#
+# BASE - HOME
+export ORACLE_BASE=/u01/app/grid;
+export ORACLE_HOME=/u01/app/grid/product/11.2.0/grid;
+#---------------------------------------------------#
+# CONFIG TNS
+export TNS_ADMIN=$ORACLE_HOME/network/admin;
+#---------------------------------------------------#
+# Config  TO_CHAR and TO_DATE functions
+export NLS_DATE_FORMAT="DD-MON-YYYY HH24:MI:SS";
+#---------------------------------------------------#
+# TERM environment variable
+export ORACLE_TERM=xterm;
+#---------------------------------------------------#
+# JDK use green threads
+export THREADS_FLAG=native;
+#---------------------------------------------------#
+# User specific environment and startup programs
+export BASE_PATH=$PATH;
+export PATH=${JAVA_HOME}/bin:$ORACLE_HOME/bin:$ORA_CRS_HOME/bin:$HOME/bin:/usr/sbin:$BASE_PATH;
+export LD_LIBRARY_PATH=$ORACLE_HOME/lib:$ORA_CRS_HOME/lib:$ORACLE_HOME/oracm/lib:${JAVA_HOME}/lib:/lib:/usr/lib:/usr/local/lib;
+export CLASSPATH=$ORACLE_HOME/JRE:$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib:$ORACLE_HOME/network/jlib;
+#---------------------------------------------------#
+# Umask 
+umask 022;
+#---------------------------------------------------#
+# SHELL ENVIRONMENT USER GRID
+# ulimit -aS
+# ulimit -aH
+
+if [ $USER = "grid" ]; then
+    if [ $SHELL = "/bin/ksh" ]; then
+        ulimit -p 16384
+        ulimit -n 65536
+    else
+        ulimit -u 16384 -n 65536
+    fi
+fi
+#ALIAS by ROOT
+alias dba='sqlplus / as sysasm'
+#####################################################
+
+
+# ADD PERMISAO 
+chown grid:oinstall /home/grid/.bash_profile
+
+
+------------------------------------------------
+
+
+#[oracle@myserver~]$ cat $HOME/bin/oracle_env
+
+## Fazer Backup do Profile Atual
+cp /home/oracle/.bash_profile /home/oracle/.bash_profile_backup_ORIGINAL
+chown oracle:oinstall /home/oracle/.bash_profile_backup_ORIGINAL
+
+## Criar Arquivo e no final rodar chown
+vim /home/oracle/.bash_profile
+chown oracle:oinstall /home/oracle/.bash_profile
+
+
+
+
+# .bash_profile
+######################################################
+# -------------------------------------------------- #
+# .bash_profile                                      #
+# -------------------------------------------------- #
+# OS User: oracle                                    #
+# Application: Oracle Database Software Owner        #
+# Version: Oracle 11G Release 2                      #
+# ---------------------------------------------------#
+######################################################
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+#####################################################
+# User specific environment and startup programs    #
+PATH=$PATH:$HOME/bin;
+export PATH;
+#####################################################
+#---------------------------------------------------#
+# X11-XAUTH REMOVE MSG -> Warning: Missing charsets in String to FontSet conversion 
+export LC_ALL=C;
+#---------------------------------------------------#
+# SE HABILITAR O USUARIO NAO LOGA VIA TELA DE LOGIN 
+#export DISPLAY=oraclevm:0.0;    
+#---------------------------------------------------#
+# JAVA_HOME
+export JAVA_HOME=/usr/bin/java;
+#---------------------------------------------------#
+# TEMP
+export TMP=/tmp;
+export TEMP=$TMP;
+export TMPDIR=$TMP;
+#---------------------------------------------------#
+# USER ORACLE
+export ORACLE_OWNER=oracle;
+#---------------------------------------------------#
+# HOST NAME
+export ORACLE_HOSTNAME=192.168.100.250;
+#---------------------------------------------------#
+# ORACLE SID
+export ORACLE_UNQNAME=oracledb;
+export ORACLE_SID=oracledb;
+#---------------------------------------------------#
+# BASE - HOME
+export ORACLE_BASE=/u01/app/oracle;
+export ORACLE_HOME=$ORACLE_BASE/product/11.2.0/db_1;
+export GRID_HOME=/u01/app/grid/product/11.2.0/grid;
+#---------------------------------------------------#
+# CONFIG TNS
+export TNS_ADMIN=$ORACLE_HOME/network/admin;
+#---------------------------------------------------#
+# Config  TO_CHAR and TO_DATE functions
+export NLS_DATE_FORMAT="DD-MON-YYYY HH24:MI:SS";
+#---------------------------------------------------#
+# TERM environment variable
+export ORACLE_TERM=xterm;
+#---------------------------------------------------#
+# JDK use green threads
+export THREADS_FLAG=native;
+#---------------------------------------------------#
+# User specific environment and startup programs
+export BASE_PATH=$PATH;
+export PATH=${JAVA_HOME}/bin:$ORACLE_HOME/bin:$ORA_CRS_HOME/bin:$HOME/bin:/usr/sbin:$BASE_PATH;
+export LD_LIBRARY_PATH=$ORACLE_HOME/lib:$ORA_CRS_HOME/lib:$ORACLE_HOME/oracm/lib:${JAVA_HOME}/lib:/lib:/usr/lib:/usr/local/lib;
+export CLASSPATH=$ORACLE_HOME/JRE:$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib:$ORACLE_HOME/network/jlib;
+#---------------------------------------------------#
+# Umask 
+umask 022;
+#---------------------------------------------------#
+# SHELL ENVIRONMENT USER ORACLE
+# ulimit -aS
+# ulimit -aH
+
+if [ $USER = "oracle" ]; then
+    if [ $SHELL = "/bin/ksh" ]; then
+        ulimit -p 16384
+        ulimit -n 65536
+    else
+        ulimit -u 16384 -n 65536
+    fi
+fi
+#ALIAS by ROOT
+alias dba='sqlplus / as sysdba'
+####################################################
+
+
+# ADD PERMISAO 
+chown oracle:oinstall /home/oracle/.bash_profile
+
+
+/u01/app/oraInventory/orainstRoot.sh
+ /u01/app/grid/product/11.2.0/grid/root.sh
+
+/u01/app/oracle/product/11.2.0/db_1/root.sh

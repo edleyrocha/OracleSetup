@@ -1,0 +1,57 @@
+------------------------------------------------ 
+
+# cat /etc/oracle-release
+# Oracle Linux Server release 6.10
+
+------------------------------------------------
+
+#DADOS MAQUINA Oracle
+
+User Name: root 
+User Password: oracle
+
+MODO NAT VM
+ETH LINUX    : ETH0
+MODO IP      : DHCP
+HOST         : NAT
+
+MODO BRIDGET VM
+ETH LINUX    : ETH1
+MODO IP      : FIXO
+HOST         : BRIDGET
+
+NOME:  oraclevm.localdomain
+IP:    192.168.100.250/24
+GW:    0.0.0.0
+DNS:   NADA 
+
+------------------------------------------------
+
+## ESQUEMA PARTIÇÃO SIMPLES
+/boot
+swap
+/
+
+------------------------------------------------
+
+# MODO (PRODUCAO MODO TEXTO)
+Base System > Base                     
+Base System > Compatibility libraries
+Servers > System administration tools
+Desktops > Fonts
+UEKA4 Kernel repo > UEKA4 Kernel repo 
+
+# MODO (PRODUCAO MODO GRAFICO)
+Base System > Base                     
+Base System > Compatibility libraries
+Servers > System administration tools
+Desktops > Desktop
+Desktops > Desktop Platform
+Desktops > Fonts
+Desktops > General Purpose Desktop
+Desktops > Graphical Administration Tools
+Desktops > Input Methods
+Desktops > X Window System
+Applications > Internet Browser
+UEKA4 Kernel repo > UEKA4 Kernel repo 
+------------------------------------------------
